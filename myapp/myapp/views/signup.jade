@@ -1,0 +1,28 @@
+doctype html
+
+html.
+    <head>
+        <meta charset = "utf-8">
+        <meta name="title" content="GeeGees">
+        <meta name="description" content="Your Online Gamestore">
+        <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+        <link rel="stylesheet" type="text/css" href='../public/stylesheets/style.css'>
+        <link href='https://fonts.googleapis.com/css?family=Alef' rel='stylesheet'>
+    </head>
+    <body>
+        <!-- main content page -->  
+        <main>
+            <form action="./public/javascripts/logInHandler.js">
+                <fieldset>   
+                    <legend>Log In:</legend> 
+                    <p>Email:</p>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <p>Password:</p>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="submit" value="Log In">
+                    <p>Don't have an account yet? <a href="register">Sign up here.</a></p>
+                </fieldset>
+            </form>
+        </main>
+    </body>
+</html>
