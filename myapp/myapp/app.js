@@ -13,22 +13,6 @@ var signupRouter = require('./routes/signup');
 // express setup
 var app = express();
 
-// fileserver and databases setup
-var fs = require("fs");
-var dbfile = "databases/database.db";
-var dbexists = fs.existsSync(dbfile);
-var sqlite3 = require("sqlite3").verbose();
-var db = new sqlite3.Database(dbfile);
-
-// creates database tables if the file does not exist
-/*
-db.serialize(function() {
-  if(!dbexists) {
-    db.run("CREATE TABLE Accounts (AccountID int, FirstName varchar(255), LastName varchar(255), Username varchar(255), Password varchar(255)); CREATE TABLE Products (ProductID int, ProductName varchar(255), ProductPrice float(255,2), ProductCountInStock int");
-  }
-});
-*/
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
