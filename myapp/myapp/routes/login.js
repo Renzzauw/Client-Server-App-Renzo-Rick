@@ -19,8 +19,9 @@ db.serialize(function() {
   var stmt = db.prepare("INSERT INTO Accounts VALUES (?,?)");
   //stmt.run("test","w8woord");
   stmt.finalize();
-  db.each("SELECT username, password FROM Accounts", function(err, row) {
+  db.each("SELECT userid, username, password FROM Accounts", function(err, row) {
     foundMatch = {
+                   userid: row.userid,
                    username: row.username,
                    password: row.password 
                  }
@@ -37,11 +38,12 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   // get login data from POST request
   console.log("> Handling a login");
-  // username found
+  // match found
   if (req.body.username === foundMatch.username && req.body.password === foundMatch.password) {
     console.log("  - account found.");
+    res.render('index');
   }
-  // username not found
+  // incorrect login data
   else {
     console.log("  - account not found.");  
     res.render('login', { title: 'Login', error: 'Username or password is wrong, try again.' });
