@@ -10,17 +10,20 @@ if(!exists) {
 }
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database(file);
-var foundMatch = false;
-// 
+var foundMatch = {};
+ 
 db.serialize(function() {
   if(!exists) {
     db.run("CREATE TABLE Accounts (username TEXT, password TEXT)");
   }
   var stmt = db.prepare("INSERT INTO Accounts VALUES (?,?)");
-  stmt.run("test","w8woord");
+  //stmt.run("test","w8woord");
   stmt.finalize();
-  db.each("SELECT rowid AS id, username FROM Accounts", function(err, row) {
-    foundMatch = row.username; 
+  db.each("SELECT username, password FROM Accounts", function(err, row) {
+    foundMatch = {
+                   username: row.username,
+                   password: row.password 
+                 }
   });
 });
 db.close();
@@ -34,16 +37,13 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   // get login data from POST request
   console.log("> Handling a login");
-  //res.locals.error = "";
   // username found
-  if (req.body.username === foundMatch) {
-    console.log("  - username found");
-    // check password
-    //TODO
+  if (req.body.username === foundMatch.username && req.body.password === foundMatch.password) {
+    console.log("  - account found.");
   }
   // username not found
   else {
-    console.log("  - username not found");  
+    console.log("  - account not found.");  
     res.render('login', { title: 'Login', error: 'Username or password is wrong, try again.' });
   }
 });
