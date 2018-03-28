@@ -13,7 +13,8 @@ var db = new sqlite3.Database(file);
 
 db.serialize(function() {
   db.each("SELECT productname,productid FROM Products", function(err,row){
-    document.write(productname);
+    //document.write(productname);
+    //document.getElementById("hi") = productname;
   })
 });
 db.close();
