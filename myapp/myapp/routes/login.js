@@ -13,12 +13,14 @@ var db = new sqlite3.Database(file);
 var foundMatch = {};
  
 db.serialize(function() {
+  /*
   if(!exists) {
     db.run("CREATE TABLE Accounts (username TEXT, password TEXT)");
   }
-  //var stmt = db.prepare("INSERT INTO Accounts VALUES (?,?,?)");
-  //stmt.run("test","w8woord");
-  //stmt.finalize();
+  var stmt = db.prepare("INSERT INTO Accounts VALUES (?,?,?)");
+  stmt.run("test","w8woord");
+  stmt.finalize();
+  */
   db.get("SELECT userid, username, password FROM Accounts", function(err, row) {
     foundMatch = {
                    userid: row.userid,

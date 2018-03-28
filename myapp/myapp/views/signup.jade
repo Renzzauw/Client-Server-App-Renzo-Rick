@@ -6,21 +6,23 @@ html.
         <meta name="title" content="GeeGees">
         <meta name="description" content="Your Online Gamestore">
         <meta name="keywords" content="HTML,CSS,XML,JavaScript">
-        <link rel="stylesheet" type="text/css" href='../public/stylesheets/style.css'>
+        <link rel="stylesheet" type="text/css" href='/stylesheets/style.css'>
         <link href='https://fonts.googleapis.com/css?family=Alef' rel='stylesheet'>
     </head>
     <body>
         <!-- main content page -->  
         <main>
-            <form action="./public/javascripts/logInHandler.js">
+            <form method="post">
                 <fieldset>   
                     <legend>Sign Up:</legend> 
                     <p>Username:</p>
                     <input type="text" name="username" placeholder="Username" required>
                     <p>Password:</p>
                     <input type="password" name="password" placeholder="Password" required>
-                    <input type="submit" value="Log In">
-                    <p>Don't have an account yet? <a href="register">Sign up here.</a></p>
+                    <p>Confirm Password:</p>
+                    <input type="password" name="confirmpassword" placeholder="Password" required>
+                    <p id="login-error-message">#{error}</p>
+                    <input type="submit" value="Sign Up">
                 </fieldset>
             </form>
         </main>
