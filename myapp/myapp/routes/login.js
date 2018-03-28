@@ -34,6 +34,19 @@ router.get('/', function(req, res, next) {
   res.render('login', { title: 'Login' });
 });
 
+// TODO: moet denk ik naar index?
+router.get('/account', function(req, res, next) {
+  loggedIn = false;
+  if (!loggedIn) {
+    // Unautorised
+    return res.status(401).send();
+  }
+  else {
+    // gooi die malse persoonlijke pagina
+  }
+});
+
+
 /* POST users listing. */
 router.post('/', function(req, res, next) {
   // get login data from POST request
