@@ -16,10 +16,10 @@ db.serialize(function() {
   if(!exists) {
     db.run("CREATE TABLE Accounts (username TEXT, password TEXT)");
   }
-  var stmt = db.prepare("INSERT INTO Accounts VALUES (?,?)");
+  //var stmt = db.prepare("INSERT INTO Accounts VALUES (?,?,?)");
   //stmt.run("test","w8woord");
-  stmt.finalize();
-  db.each("SELECT userid, username, password FROM Accounts", function(err, row) {
+  //stmt.finalize();
+  db.get("SELECT userid, username, password FROM Accounts", function(err, row) {
     foundMatch = {
                    userid: row.userid,
                    username: row.username,
