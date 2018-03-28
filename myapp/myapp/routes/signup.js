@@ -21,13 +21,14 @@ db.serialize(function() {
     stmt.run("test","w8woord");
     stmt.finalize();
     */
-    db.get("SELECT username FROM Accounts", function(err, row) {
+    db.each("SELECT username FROM Accounts", function(err, row) {
       foundMatch = {
                      username: row.username
                    }
     });
 });
-db.close();
+
+//db.close();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -48,7 +49,12 @@ router.post('/', function(req, res, next) {
   }
   // user does not exist yet, proceed to creation of account
   else { 
-    // generate userid, add to database
+    // generate userid, add to database create a session
+    var stmt = db.prepare("INSERT INTO Accounts VALUES (?,?,?)");
+    var id = Math.floor(Math.random() * 10000000);
+    stmt.run(id, req.body.username, req.body.password);
+
+
     res.render('index');
   }
 });
