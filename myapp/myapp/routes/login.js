@@ -21,7 +21,7 @@ db.serialize(function() {
   stmt.run("test","w8woord");
   stmt.finalize();
   */
-  db.get("SELECT userid, username, password FROM Accounts", function(err, row) {
+  db.each("SELECT userid, username, password FROM Accounts", function(err, row) {
     foundMatch = {
                    userid: row.userid,
                    username: row.username,
