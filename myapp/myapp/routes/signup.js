@@ -55,7 +55,7 @@ router.post('/', function(req, res, next) {
     stmt.run(id, req.body.username, req.body.password);
 
 
-    res.render('index');
+    res.redirect('index');
   }
 });
 
