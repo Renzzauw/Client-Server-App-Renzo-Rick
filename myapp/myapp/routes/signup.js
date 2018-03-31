@@ -32,7 +32,13 @@ db.serialize(function() {
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+  if(req.session.userid) {
+    res.redirect('/'); 
+  }  
+  else {
     res.render('signup');
+  }
+  
 });
 
 /* POST users listing. */

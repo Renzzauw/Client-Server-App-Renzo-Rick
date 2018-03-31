@@ -11,13 +11,17 @@ html.
     </head>
     <body>
         <!-- top nav menu -->
-        <nav id="top-menu">
-            <a href="#">Home</a>
-            <a href="#">My Account</a>
-        </nav>
+        <div class="topnav">
+            <a href="/">Home</a>
+            <a href="/account">My Account</a>
+            <input type="text" placeholder="Search Games">
+        </div>
+        
+        <img id="index-banner" src="/images/index/banner.jpg" alt="index banner">
+
         <!-- introduction -->
         <header>
-            <h1>GeeGees</h1>
+            <h1 id="page-title">GeeGees</h1>
             <h2>Welcome to our webshop!</h2>
         </header>
         <!-- main content page -->  
@@ -28,14 +32,15 @@ html.
                     <option value="alphabet">Alphabetical Order</option>
                     <option value="price-increasing">Price Increasing</option>
                     <option value="price-decreasing">Price Decreasing</option>         
-                </select>
-                <p>YEET</p>
+                </select>               
             </aside>
             
+            <h2>Our products</h2>
+
             <section class="product-field">
-                <h2>Game Title</h2>
-                <h3>Release date - Publisher</h3>
-                <img src="#">
+                <h3>Game Title</h3>
+                <h4>Release date - Publisher</h4>
+                <img src="#" alt="game avatar">
                 <p>Short explanation of how awesome this game is.</p>
             </section>
         </main>
