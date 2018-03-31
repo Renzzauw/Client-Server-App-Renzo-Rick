@@ -29,14 +29,23 @@ db.serialize(function() {
                  }
   });
 });
-db.close();
+//db.close();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.render('login', { title: 'Login' });
+  // check if a user is already logged in, if so redirect to homepage
+  if(req.session.userid) {
+     res.redirect('/'); 
+  }
+  // no logged in user, proceed to login page
+  else {
+    res.render('login', { title: 'Login' });
+  }
+  
 });
 
-// TODO: moet denk ik naar index?
+/*
+// TODO: moet denk ik naar index of eigen router krijgen?
 router.get('/account', function(req, res, next) {
   loggedIn = false;
   if (!loggedIn) {
@@ -47,7 +56,7 @@ router.get('/account', function(req, res, next) {
     // gooi die malse persoonlijke pagina
   }
 });
-
+*/
 
 /* POST users listing. */
 router.post('/', function(req, res, next) {
@@ -56,9 +65,11 @@ router.post('/', function(req, res, next) {
   // match found
   if (req.body.username === foundMatch.username && req.body.password === foundMatch.password) {
     console.log("  - account found.");
-    res.render('index');
+    // add userid to session and redirect to index page
+    req.session.userid = foundMatch.userid;
+    res.redirect('/');
   }
-  // incorrect login data
+  // incorrect login data, display error message
   else {
     console.log("  - account not found.");  
     res.render('login', { title: 'Login', error: 'Username or password is wrong, try again.' });

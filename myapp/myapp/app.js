@@ -14,6 +14,19 @@ var signupRouter = require('./routes/signup');
 // express setup
 var app = express();
 
+// session setup
+var session = require('express-session');
+var SQLiteStore = require('connect-sqlite3')(session);
+app.use(session({
+  store: new SQLiteStore,
+  secret: 'thisisaveryverysneekysecret',
+  //table: 'sessions',
+  //db: 'sessionsDB',
+  //dir: '/databases',
+  //resave: true
+}));
+var sess;
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -29,6 +42,14 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
+
+/*
+app.get('/', function(err, req, res, next){
+  console.log(req.cookies);
+  console.log('===========================');
+  console.log(req.session);
+});
+*/
 
 // *** error handling *** 
 

@@ -52,10 +52,11 @@ router.post('/', function(req, res, next) {
     // generate userid, add to database create a session
     var stmt = db.prepare("INSERT INTO Accounts VALUES (?,?,?)");
     var id = Math.floor(Math.random() * 10000000);
+    req.session.userid = id;
     stmt.run(id, req.body.username, req.body.password);
 
 
-    res.redirect('index');
+    res.redirect('/');
   }
 });
 
