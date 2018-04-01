@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var signupRouter = require('./routes/signup');
+var signoutRouter = require('./routes/signout');
 
 // express setup
 var app = express();
@@ -42,6 +43,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
+app.use('/signout', signoutRouter);
+
 
 /*
 app.get('/', function(err, req, res, next){

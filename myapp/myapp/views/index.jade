@@ -13,12 +13,19 @@ html.
         <!-- top nav menu -->
         <nav class="topnav">
             <a href="/">Home</a>
-            <form>
+            <form id="sign-up">
+                <button class="nav-button" type="submit">Sign Up</button>
+            </form>
+            <form id="log-in">
+                <button class="nav-button" type="submit">Log In</button>
+            </form>
+            <a href="/signout">Log Out</a>
+            <form id="search-bar">
                 <button type="submit">Search</button>
                 <input type="text" placeholder="Search Games...">
             </form>   
         </nav>
-              
+
         <img id="index-banner" src="/images/index/banner.jpg" alt="index banner">
 
         <!-- introduction -->
@@ -46,22 +53,17 @@ html.
             </section>
 
             <section class="product-field">
-                <div class="product-info">
-                    <h3>Rocket League</h3>
-                    <h4>07/07/2015 - Psyonix - Racing</h4>
-                    <h3>€19,99</h3>
-                </div>
-                <div class="product-image">
-                    <img src="/images/products/rocketleague.jpg" alt="game avatar">
-                    <form>
-                        <button type="submit">Buy</button>  
-                    </form> 
-                </div>
-                
+                <h3>Rocket League</h3>
+                <h4>07/07/2015 - Psyonix - Racing</h4>
+                <h3>€19,99</h3>
+                <img src="/images/products/rocketleague.jpg" alt="game avatar">
+                <form>
+                    <button type="submit">Buy</button>  
+                </form>   
             </section>
         </main>
         <footer>
-
+            <h3>©GeeGees 2018 - Created by Renzo Schindeler & Rick Bouman</h3>
         </footer>
     </body>
 </html>
