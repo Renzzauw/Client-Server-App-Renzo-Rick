@@ -64,6 +64,7 @@ router.post('/', function(req, res, next) {
 
     res.redirect('/');
   }
+  db.close();
 });
 
 module.exports = router;

@@ -24,6 +24,8 @@ class Product {
     products.push(this);
   }
 
+  
+
   generateProductHtml() {
     //var field = document.getElementById("product-list");
     var html = "";
@@ -31,6 +33,7 @@ class Product {
     return html;
   }
 }
+
 
 function getProductsFromDB(){
   db.serialize(function() {
@@ -55,7 +58,13 @@ db.close();
 /* GET home page. */
 router.get('/', function(req, res, next) {
   
-  res.render('index');
+  res.render('index',);
+  
+});
+
+router.get('/getdata', function(req, res, next) {
+  
+  res.render('index', {products});
   
 });
 

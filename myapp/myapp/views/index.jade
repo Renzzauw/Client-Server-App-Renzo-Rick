@@ -60,7 +60,12 @@ html.
                 <form>
                     <button type="submit">Buy</button>  
                 </form>   
-            </section>            
+            </section>
+            <a href="/getdata">GET DATA<a>
+            <div>
+            {{# each data}}
+            <div>HI {{this.productid}}</div>
+            </div>         
         </main>
         <footer>
             <h3>©GeeGees 2018 - Created by Renzo Schindeler & Rick Bouman</h3>
