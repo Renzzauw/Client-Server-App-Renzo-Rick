@@ -12,11 +12,13 @@ html.
     <body>
         <!-- top nav menu -->
         <nav class="topnav">
-            <a id="active-page" href="/">Home</a>
-            <a href="/account">My Account</a>
-            <input type="text" placeholder="Search Games">
+            <a href="/">Home</a>
+            <form>
+                <button type="submit">Search</button>
+                <input type="text" placeholder="Search Games...">
+            </form>   
         </nav>
-        
+              
         <img id="index-banner" src="/images/index/banner.jpg" alt="index banner">
 
         <!-- introduction -->
@@ -35,14 +37,31 @@ html.
                 </select>               
             </aside>
             
-            <h2>Our products</h2>
+            <section id="confirmation-screen"> 
+                <h3>Are you sure you want to buy this product?</h3>
+                <form>
+                    <button id="confirm" type="submit">Confirm</button> 
+                    <button id="cancel" type="submit">Cancel</button>  
+                </form> 
+            </section>
 
             <section class="product-field">
-                <h3>Game Title</h3>
-                <h4>Release date - Publisher</h4>
-                <img src="#" alt="game avatar">
-                <p>Short explanation of how awesome this game is.</p>
+                <div class="product-info">
+                    <h3>Rocket League</h3>
+                    <h4>07/07/2015 - Psyonix - Racing</h4>
+                    <h3>€19,99</h3>
+                </div>
+                <div class="product-image">
+                    <img src="/images/products/rocketleague.jpg" alt="game avatar">
+                    <form>
+                        <button type="submit">Buy</button>  
+                    </form> 
+                </div>
+                
             </section>
         </main>
+        <footer>
+
+        </footer>
     </body>
 </html>
