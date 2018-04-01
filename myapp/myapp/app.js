@@ -4,6 +4,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var $ = require("jquery");
 
 // routes setup
 var indexRouter = require('./routes/index');
@@ -53,6 +54,7 @@ app.get('/', function(err, req, res, next){
   console.log(req.session);
 });
 */
+
 
 // *** error handling *** 
 

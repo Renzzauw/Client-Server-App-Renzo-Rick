@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var $ = require("jquery");
 
 var fs = require("fs");
 var file = "databases/database.db";
@@ -13,15 +13,15 @@ var db = new sqlite3.Database(file);
 
 db.serialize(function() {
   db.each("SELECT productname,productid FROM Products", function(err,row){
-    //document.write(productname);
-    //document.getElementById("hi") = productname;
   })
 });
 db.close();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  
   res.render('index');
+  
 });
 
 module.exports = router;
