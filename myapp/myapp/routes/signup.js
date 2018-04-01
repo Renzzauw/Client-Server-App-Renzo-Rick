@@ -56,10 +56,10 @@ router.post('/', function(req, res, next) {
   // user does not exist yet, proceed to creation of account
   else { 
     // generate userid, add to database create a session
-    var stmt = db.prepare("INSERT INTO Accounts VALUES (?,?,?)");
+    var stmt = db.prepare("INSERT INTO Accounts VALUES (?,?,?,?,?,?)");
     var id = Math.floor(Math.random() * 10000000);
     req.session.userid = id;
-    stmt.run(id, req.body.username, req.body.password);
+    stmt.run(id, req.body.username, req.body.password, req.body.email, req.body.firstname, req.body.lastname);
 
 
     res.redirect('/');
