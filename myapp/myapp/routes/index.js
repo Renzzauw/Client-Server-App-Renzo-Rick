@@ -10,7 +10,7 @@ if(!exists) {
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database(file);
 
-var field = document.getElementById("product-list");
+//var field = document.getElementById("product-list");
 var products = [];
 var orderMode = [];
 
