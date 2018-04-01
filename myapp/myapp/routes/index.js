@@ -36,14 +36,12 @@ function getProductsFromDB(){
   db.serialize(function() {
     // order by productname
     db.each("SELECT * FROM Products ORDER BY productname ASC", function(err, row) {
-           pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre);
-           products.push(pr);      
+           pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre); 
     });
 
     // order by price
     db.each("SELECT * FROM Products ORDER BY price ASC", function(err, row) {
-      pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre);
-      products.push(pr);      
+      pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre);  
 });
   });
 }
