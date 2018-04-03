@@ -14,10 +14,11 @@ var foundMatch = {};
  
 router.get('/', function(req, res, next) {  
     if (!req.session) {
+        // visitor has not been logged in, redirect to login page
         res.redirect('/login');
     }
     else {
-        //var stmt = db.prepare("SELECT * FROM Accounts WHERE userid=?");
+        // session detected, get user information and display on page
         db.get("SELECT * FROM Accounts WHERE userid="+req.session.userid, function(err, row) {
             res.render('account', { username: row.username, email: row.email, firstname: row.firstname, lastname: row.lastname, password: row.password}); 
         })   
