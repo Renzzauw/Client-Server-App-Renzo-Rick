@@ -25,12 +25,13 @@ html.
         </nav>
         <!-- introduction -->
         <header>
-            <h1 id="page-title">Order History</h1>
-            <h2>Check out all your previous orders on this page.</h2>
+            <h1 id="page-title">Sign Up</h1>
+            <h2>Create an account here.</h2>
         </header>
         <!-- main content page -->  
         <main>
-            <form class="info-form" method="post">
+            <fieldset>   
+                <legend>Sign Up:</legend> 
                 <p>Username:</p>
                 <input type="text" name="username" placeholder="Username" required>
                 <p>E-mail address:</p>
@@ -41,9 +42,12 @@ html.
                 <input type="text" name="lastname" placeholder="Last Name" required>
                 <p>Password (use at least 5 characters):</p>
                 <input minlength="5" type="password" name="password" placeholder="Password" required>
-                <p id="changes-error-message">#{error}</p>
-                <input type="submit" value="Submit Changes">
-            </form>
+                <p>Confirm Password:</p>
+                <input minlength="5" type="password" name="confirmpassword" placeholder="Password" required>
+                <p id="login-error-message">#{error}</p>
+                <input type="submit" value="Sign Up">
+                <p>Already have an account? <a href="/login">Log in here.</a></p>
+            </fieldset>
         </main>
         <footer>
             <h3>©GeeGees 2018 - Created by Renzo Schindeler & Rick Bouman</h3>
