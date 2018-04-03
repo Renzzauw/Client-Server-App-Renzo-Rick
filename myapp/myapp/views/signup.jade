@@ -30,8 +30,7 @@ html.
         </header>
         <!-- main content page -->  
         <main>
-            <fieldset>   
-                <legend>Sign Up:</legend> 
+            <form class="info-form" method="post">         
                 <p>Username:</p>
                 <input type="text" name="username" placeholder="Username" required>
                 <p>E-mail address:</p>
@@ -46,8 +45,8 @@ html.
                 <input minlength="5" type="password" name="confirmpassword" placeholder="Password" required>
                 <p id="login-error-message">#{error}</p>
                 <input type="submit" value="Sign Up">
-                <p>Already have an account? <a href="/login">Log in here.</a></p>
-            </fieldset>
+                <p>Already have an account? <a href="/login">Log in here.</a></p>           
+            </form>
         </main>
         <footer>
             <h3>©GeeGees 2018 - Created by Renzo Schindeler & Rick Bouman</h3>

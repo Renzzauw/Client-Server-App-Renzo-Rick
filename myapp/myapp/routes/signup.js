@@ -60,8 +60,7 @@ router.post('/', function(req, res, next) {
     var id = Math.floor(Math.random() * 10000000);
     req.session.userid = id;
     stmt.run(id, req.body.username, req.body.password, req.body.email, req.body.firstname, req.body.lastname);
-
-
+    db.close();
     res.redirect('/');
   }
   db.close();

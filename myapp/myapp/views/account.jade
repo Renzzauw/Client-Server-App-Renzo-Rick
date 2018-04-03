@@ -29,8 +29,17 @@ html.
             <h2>Check or change your personal info here</h2>
         </header>
         <!-- main content page -->  
-        <main>                        
+        <main>   
+            <section>
+                <h2>Account Info</h2>
+                <p>Username: #{username}</p>
+                <p>E-mail address: #{email}</p>
+                <p>First Name: #{firstname}</p>
+                <p>Last Name: #{lastname}</p>
+                <p>Password: #{password}</p>
+            </section>                     
             <section id="account-info">
+                <h2>Change Account Info</h2>
                 <form class="info-form" method="post">
                     <p>Username:</p>
                     <input type="text" name="username" placeholder="Username" required>

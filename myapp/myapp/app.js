@@ -24,10 +24,9 @@ var SQLiteStore = require('connect-sqlite3')(session);
 app.use(session({
   store: new SQLiteStore,
   secret: 'thisisaveryverysneekysecret',
-  //table: 'sessions',
-  //db: 'sessionsDB',
-  //dir: '/databases',
-  //resave: true
+  resave: true,
+  saveUninitialized: false,
+  cookie: { maxAge: 86400000 } // set cookie lifetime to one day
 }));
 var sess;
 
