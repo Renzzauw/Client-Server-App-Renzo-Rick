@@ -18,6 +18,7 @@ router.get('/', function(req, res, next) {
         res.redirect('/login');
     }
     else {
+        console.log(req.session);
         // session detected, get user information and display on page
         db.get("SELECT * FROM Accounts WHERE userid="+req.session.userid, function(err, row) {
             res.render('account', { username: row.username, email: row.email, firstname: row.firstname, lastname: row.lastname, password: row.password}); 
@@ -25,8 +26,29 @@ router.get('/', function(req, res, next) {
     }      
 });
 
-router.post('/', function(req, res, next){
-    // aanpassingen doorgeven aan DB
-});
-
-module.exports = router;
+/* POST users listing. */
+router.post('/', function(req, res, next) {
+    // get signup data from POST request
+    console.log("> Handling changes");
+    var found = false;
+    var ui;
+    db.get("SELECT * FROM Accounts WHERE userid="+req.body.userid, function(err, row) {
+        found = true;
+        ui = row.userid;
+    })
+    // username already exists
+    if (found && req.body.username != ui) {
+      res.render('signup', { error: "Username already exists."});
+    }
+    // user does not exist yet, proceed to creation of account
+    else { 
+      // generate userid, add to database create a session
+      var stmt = db.prepare("UPDATE Accounts SET username=?, password=?, email=?, firstname=?, lastname=? WHERE userid=? ");
+      stmt.run(id, req.body.username, req.body.password, req.body.email, req.body.firstname, req.body.lastname, req.session.userid);
+      db.close();
+      res.redirect('/account', { succes: "profile sucessfully updated!"});
+    }
+    db.close();
+  });
+  
+  module.exports = router;

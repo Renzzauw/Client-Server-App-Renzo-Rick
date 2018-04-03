@@ -251,3 +251,11 @@ aside {
     color: red;
 }
 
+#changes-error-message {
+    color: red;
+}
+
+#changes-success-message {
+    color: rgb(102, 255, 0);
+}
+
