@@ -26,9 +26,7 @@ app.use(session({
   secret: 'thisisaveryverysneekysecret',
   resave: true,
   saveUninitialized: false,
-  cookie: { maxAge: 86400000 } // set cookie lifetime to one day
 }));
-var sess;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -48,16 +46,6 @@ app.use('/signup', signupRouter);
 app.use('/signout', signoutRouter);
 app.use('/account', accountRouter);
 app.use('/history', historyRouter);
-
-
-/*
-app.get('/', function(err, req, res, next){
-  console.log(req.cookies);
-  console.log('===========================');
-  console.log(req.session);
-});
-*/
-
 
 // *** error handling *** 
 

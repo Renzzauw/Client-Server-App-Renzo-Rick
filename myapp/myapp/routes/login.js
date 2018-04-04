@@ -49,6 +49,7 @@ router.post('/', function(req, res, next) {
   // incorrect login data, display error message
   else {
     console.log("  - account not found.");  
+    req.session.userid = id;
     res.render('login', { title: 'Login', error: 'Username or password is wrong, try again.' });
   }
 });

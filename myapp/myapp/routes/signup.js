@@ -12,15 +12,8 @@ var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database(file);
 var foundMatch = {};
 
+
 db.serialize(function() {
-    /*
-    if(!exists) {
-      db.run("CREATE TABLE Accounts (username TEXT, password TEXT)");
-    }
-    var stmt = db.prepare("INSERT INTO Accounts VALUES (?,?,?)");
-    stmt.run("test","w8woord");
-    stmt.finalize();
-    */
     db.each("SELECT username FROM Accounts", function(err, row) {
       foundMatch = {
                      username: row.username
@@ -55,6 +48,18 @@ router.post('/', function(req, res, next) {
   }
   // user does not exist yet, proceed to creation of account
   else { 
+    db.serialize(function() {
+      var id = Math.floor(Math.random() * 10000000);
+      var stmt = db.prepare("INSERT INTO Accounts VALUES (?,?,?,?,?,?)");
+      //req.session.userid = id;
+      stmt.run(id, req.body.username, req.body.password, req.body.email, req.body.firstname, req.body.lastname);
+    });
+    db.close();
+    alert("You have been registered successfully.");
+    res.redirect('/login');
+    
+    /*
+    db.serialize(function() {
     // generate userid, add to database create a session
     var stmt = db.prepare("INSERT INTO Accounts VALUES (?,?,?,?,?,?)");
     var id = Math.floor(Math.random() * 10000000);
@@ -62,8 +67,12 @@ router.post('/', function(req, res, next) {
     stmt.run(id, req.body.username, req.body.password, req.body.email, req.body.firstname, req.body.lastname);
     db.close();
     res.redirect('/');
+    alert("You have been registered successfully.");
   }
-  db.close();
+  //db.close();
+    );*/
+
+  }
 });
 
 module.exports = router;
