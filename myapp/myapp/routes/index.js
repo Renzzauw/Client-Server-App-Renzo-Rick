@@ -21,7 +21,6 @@ class Product {
     this.releaseDate = releaseDate;
     this.publisher = publisher;
     this.genre = genre;
-    products.push(this);
   }
 
   
@@ -37,35 +36,34 @@ class Product {
 
 function getProductsFromDB(){
   db.serialize(function() {
-    // order by productname
+    console.log("sad");
+    //order by productname
     db.each("SELECT * FROM Products ORDER BY productname ASC", function(err, row) {
-           pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre); 
+           console.log("hi");
+           pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre);
+           products.push(pr); 
     });
 
     // order by price
     db.each("SELECT * FROM Products ORDER BY price ASC", function(err, row) {
-      pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre);  
-});
+      pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre);
+      products.push(pr);  
+    });
   });
 }
 
-db.serialize(function() {
-  db.each("SELECT productname,productid FROM Products", function(err,row){
-  })
-});
 db.close();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   
-  res.render('index',);
+  res.render('index');
   
 });
 
 router.get('/getdata', function(req, res, next) {
-  
+  getProductsFromDB();
   res.render('index', {data: products});
-  
 });
 
 module.exports = router;
