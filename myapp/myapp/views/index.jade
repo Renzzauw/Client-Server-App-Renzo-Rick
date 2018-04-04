@@ -62,11 +62,13 @@ html.
                     <button type="submit">Buy</button>  
                 </form>   
             </section>
-            <a href="/getdata">GET DATA<a>
-            <div>
-            {{# each data}}
+            <section class = "product-field">
+
+            <a href="/getdata">GET DATA<a>          
+            {{# each items}}
             <div>HI {{this.productid}}</div>
-            </div>         
+            {{/each}}
+            </section>         
         </main>
         <footer>
             <h3>©GeeGees 2018 - Created by Renzo Schindeler & Rick Bouman</h3>
