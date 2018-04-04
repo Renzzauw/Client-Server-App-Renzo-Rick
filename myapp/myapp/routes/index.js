@@ -38,14 +38,16 @@ function getProductsFromDB(){
   db.serialize(function() {
     console.log("sad");
     //order by productname
-    db.each("SELECT * FROM Products ORDER BY productname ASC", function(err, row) {
+    db.all("SELECT * FROM Products ORDER BY productname ASC", function(err, row) {
            console.log("hi");
-           pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre);
-           products.push(pr); 
+           console.log(row);
+           pr = new Product(this.productid, row.productname, row.releasedate, row.publisher, row.genre);
+           products.push(pr);
+           console.log("bye");
     });
 
     // order by price
-    db.each("SELECT * FROM Products ORDER BY price ASC", function(err, row) {
+    db.all("SELECT * FROM Products ORDER BY price ASC", function(err, row) {
       pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre);
       products.push(pr);  
     });
@@ -62,7 +64,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/getdata', function(req, res, next) {
-  getProductsFromDB();
   res.render('index', {data: products});
 });
 
