@@ -34,7 +34,7 @@ html.
         </header>
         <!-- main content page -->  
         <main>
-            <aside>
+            <aside class="dropdown">
                 <p>Sort by:</p>
                 <select name="sort-by" >
                     <option value="alphabet">Alphabetical Order</option>
@@ -65,13 +65,16 @@ html.
             <section class = "product-field">
 
             <a href="/getdata">GET DATA<a>          
-            {{# each items}}
-            <div>HI {{this.productid}}</div>
-            {{/each}}
+            <script>
+            for (product in data){
+                document.getElementById("help").innerHTML = "asdasd";
+            }
+            </script>
+            <p id="help">HI</p>
             </section>         
         </main>
         <footer>
-            <h3>©GeeGees 2018 - Created by Renzo Schindeler & Rick Bouman</h3>
+            <h3>©GeeGees 2018 - Created by Renzo Schindeler & Rick Boumans</h3>
         </footer>
     </body>
     
