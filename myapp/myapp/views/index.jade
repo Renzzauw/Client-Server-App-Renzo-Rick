@@ -8,6 +8,7 @@ html.
         <meta name="keywords" content="games, gaming, online games, digital, store">
         <link rel="stylesheet" type="text/css" href='/stylesheets/style.css'>
         <link href='https://fonts.googleapis.com/css?family=Alef' rel='stylesheet'>
+        <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>        
     </head>
     <body>
         <!-- top nav menu -->
@@ -32,6 +33,7 @@ html.
             <h1 id="page-title">GeeGees</h1>
             <h2>Welcome to our webshop!</h2>
         </header>
+
         <!-- main content page -->  
         <main>
             <aside class="dropdown">
@@ -60,19 +62,18 @@ html.
                     <button type="submit">Buy</button>  
                 </form>   
             </section>
-            <section class = "product-field">
-                <a href="/getdata">GET DATA</a>        
-                <script>
-                //for (product in data){
-                //    document.getElementById("help").innerHTML = "asdasd";
-                //}
-                </script>
-                <p id="help">HI</p>
-            </section>                
+            
+            <section id="catalogue">
+
+            </section>            
         </main>
         <footer>
             <h3>©GeeGees 2018 - Created by Renzo Schindeler & Rick Boumans</h3>
         </footer>
+
+        <!-- scripts -->
+        <script type="text/javascript" src="scripts/adjustNavBar.js"></script>
+        <script type="text/javascript" src="scripts/displayProducts.js"></script>    
     </body>
     
 </html>

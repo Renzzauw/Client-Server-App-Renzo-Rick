@@ -27,7 +27,7 @@ class Product {
     var html = "";
     html = '<section class="product-field"><h3>Product ID: '+this.productid+'</h3><h3>'+this.productName+'</h3><h4>'+this.releaseDate+' - '+this.publisher+' - '+this.genre+'</h4><form><button type="submit">Buy</button></form></section>';
     //<h3>€'+this.price+'</h3><img src="'+this.productImageLocation+'" alt="game avatar">
-    console.log(html);
+    //console.log(html);
     return html;
   }
 }
@@ -52,31 +52,35 @@ class Product {
 
 //db.close();
 var productshtml = "";
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res, next) { 
   
+  // get all products from the database
   
   db.serialize(function() {
     db.each("SELECT * FROM Products", function(err, row) {
       pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre);         
       products.push(pr);
-      //console.log(pr);
-      //productshtml.concat(pr.generateProductHtml());
       productshtml += pr.generateProductHtml();
     });
-    //console.log("HTML: "+productshtml);
   });
-  
-
-
-  res.render('index');
-  
+    res.render('index');
 });
 
+router.get('/products', function(req, res, next){
+  res.send(productshtml);
+});
+
+
+/*
 router.get('/getdata', function(req, res, next) {
-  getProductsFromDB();
+  res.send(productshtml);
+  
+  //getProductsFromDB();
   res.render('index');
-  console.log(products);
+  //console.log(products);
 });
+*/
 
 module.exports = router;

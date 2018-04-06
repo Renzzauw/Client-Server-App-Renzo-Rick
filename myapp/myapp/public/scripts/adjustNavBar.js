@@ -5,11 +5,9 @@
 
  // Get the nav menu buttons
 var c = document.Session;
-console.log(c["userid"]);
+//console.log(c["userid"]);
 var buttonsLoggedIn = document.getElementsByClassName("menu-logged-in");
 var buttonsLoggedOut = document.getElementsByClassName("menu-logged-out");
-
-console.log(buttonsLoggedIn);
 
 // A session is present
 if (c){
