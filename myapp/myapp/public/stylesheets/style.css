@@ -17,7 +17,9 @@ h3 { margin-left: 20px; color: rgb(220, 220, 220); }
 
 h4 { margin-left: 20px; color: rgb(220, 220, 220); }
 
-p { margin-left: 20px; color: rgb(220, 220, 220); }
+h5 { margin-left: 20px; color: rgb(220, 220, 220); }
+
+p { padding: 0; margin-left: 20px; color: rgb(220, 220, 220); }
 
 main { 
     color: rgb(220, 220, 220); 
