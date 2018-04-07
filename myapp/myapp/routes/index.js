@@ -16,28 +16,30 @@ var orderMode = [];
 
 // Product class for generating html to showcase the product
 class Product {
-  constructor(productid, productName, releaseDate, publisher, genre){
+  constructor(productid, productName, releaseDate, publisher, genre, price, stock){
     this.productid = productid;
     this.productName = productName;
     this.releaseDate = releaseDate;
     this.publisher = publisher;
     this.genre = genre;
+    this.price = price;
+    this.stock = stock;
   }
 
   // Function that generates and returns fitting html if a product is in stock or not
   generateProductHtml() {
     var html = "";
+    html = '<section class="product-field"><h5>Product ID: '+this.productid+'</h5><h3>'+this.productName+'</h3><h4>'+this.releaseDate+' '+this.publisher+' '+this.genre+'</h4><h5>Stock: '+this.stock+'</h5><img src="/images/products/'+this.productid+'.jpg" alt="game avatar">';
+    
     // check if item is in stock
-    //if(this.stock > 0){
-      html = '<section class="product-field"><h5>Product ID: '+this.productid+'</h5><h3>'+this.productName+'</h3><h4>'+this.releaseDate+' - '+this.publisher+' - '+this.genre+'</h4><img src="/images/products/'+this.productid+'.jpg" alt="game avatar"><form><button type="submit">Buy for €'+this.price+'</button></form></section>';
-    //}
+    if (this.stock <= 0) {
+      html += '<form><button type="submit" id="button-'+this.productid+'" disabled>Out of stock</button></form></section>';
+    }
     // item is out of stock
-    //else {
+    else {
+      html += '<form><button type="submit" id="button-'+this.productid+'">Buy for €'+this.price+'</button></form></section>';
+    }
 
-    //}
-    
-    
-    //<h3>€'+this.price+'</h3><img src="'+this.productImageLocation+'" alt="game avatar">
     return html;
   }
 }
@@ -70,7 +72,7 @@ router.get('/', function(req, res, next) {
   db.serialize(function() {
     productshtml = "";
     db.each("SELECT * FROM Products", function(err, row) {
-      pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre);         
+      pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
       products.push(pr);
       productshtml += pr.generateProductHtml();
     });
