@@ -1,6 +1,42 @@
+/*
+var xhttp;
+var sortMode = dropDown.val;
+var dropDown = $(".dropdown").first();
+
+$("#catalogue").load("/products?sortby="+sortMode);
+
+dropDown.change(function() {
+    sortMode = dropDown.val;
+    //$("#catalogue").load("/products?sortby="+sortMode);
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          //document.getElementById("catalogue").appendChild(this.responseText);
+          $("#catalogue").empty().load("/products?sortby="+sortMode,this.responseText);
+        }
+    };
+});
+
+
+
+
+
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      //document.getElementById("catalogue").appendChild(this.responseText);
+      $("#catalogue").load("/products", this.responseText);
+    }
+};
+*/
+
+/*
+xhttp.open("GET", url, true);
+xhttp.send(null);
+*/
+
+
 var xhttp;
 var sortMode;
-var dropDown = document.getElementsByClassName("dropdown")[0];
+var dropDown = $(".dropdown").first();
 
 //tijdelijk
 sortmode = "alphabetical";
@@ -17,19 +53,4 @@ else {
 
 //var url = "?sortby=" + dropDown.nodeValue;
 
-$("#catalogue").load("/products");
-
-
-/*
-xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      //document.getElementById("catalogue").appendChild(this.responseText);
-      $("#catalogue").load("/products",this.responseText);
-    }
-};
-*/
-
-/*
-xhttp.open("GET", url, true);
-xhttp.send(null);
-*/
+$("#catalogue").empty().load("/products");

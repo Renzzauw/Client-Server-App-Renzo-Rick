@@ -17,7 +17,7 @@ h3 { margin-left: 20px; color: rgb(220, 220, 220); }
 
 h4 { margin-left: 20px; color: rgb(220, 220, 220); }
 
-h5 { margin-left: 20px; color: rgb(220, 220, 220); }
+h5 { margin-left: 20px; color: rgb(220, 220, 220); line-height: 1.6px; }
 
 p { padding: 0; margin-left: 20px; color: rgb(220, 220, 220); }
 
@@ -141,8 +141,8 @@ aside {
     margin: 20px;
     padding: 20px;
     background-color: rgb(17, 17, 17);
-    box-shadow: 0 5px 20px rgba(26, 26, 26, 0.2);
     border-bottom: 2px solid rgb(0, 140, 255);
+    box-shadow: 0 5px 50px rgba(26, 26, 26, 0.2);
 }
 
 .product-field img {
@@ -166,7 +166,16 @@ aside {
 
 
 .product-field h3 {
+    margin: 10px;
     color: rgb(0, 140, 255);
+}
+
+.product-field h4 {
+    margin: 10px;
+}
+
+.product-field h5 {
+    margin: 5px;
 }
 
 #confirmation-screen {

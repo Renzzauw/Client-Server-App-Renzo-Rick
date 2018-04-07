@@ -68,6 +68,7 @@ router.get('/', function(req, res, next) {
   
   // get all products from the database and put them in an array
   db.serialize(function() {
+    productshtml = "";
     db.each("SELECT * FROM Products", function(err, row) {
       pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre);         
       products.push(pr);
@@ -81,6 +82,7 @@ router.get('/', function(req, res, next) {
 
 /* GET products on home page. */
 router.get('/products', function(req, res, next){
+  var sortMode = req.query.sortby;
   res.send(productshtml);
 });
 
