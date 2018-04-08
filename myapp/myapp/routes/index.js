@@ -37,7 +37,7 @@ class Product {
     }
     // item is out of stock
     else {
-      html += '<form><button type="button" onclick="purchase();" class="product-buttons" id="button-'+this.productid+'">Buy for €'+this.price+'</button></form></section>';
+      html += '<form><button type="button" onclick="toggleConfirmationScreen();" class="product-buttons" id="button-'+this.productid+'">Buy for €'+this.price+'</button></form></section>';
     }
 
     return html;
