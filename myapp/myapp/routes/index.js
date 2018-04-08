@@ -33,11 +33,11 @@ class Product {
     
     // check if item is in stock
     if (this.stock <= 0) {
-      html += '<form><button type="submit" id="button-'+this.productid+'" disabled>Out of stock</button></form></section>';
+      html += '<form><button type="button" class="product-buttons" id="button-'+this.productid+'" disabled>Out of stock</button></form></section>';
     }
     // item is out of stock
     else {
-      html += '<form><button type="submit" id="button-'+this.productid+'">Buy for €'+this.price+'</button></form></section>';
+      html += '<form><button type="button" onclick="purchase();" class="product-buttons" id="button-'+this.productid+'">Buy for €'+this.price+'</button></form></section>';
     }
 
     return html;
