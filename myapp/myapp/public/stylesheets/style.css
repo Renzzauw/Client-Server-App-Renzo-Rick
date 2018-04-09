@@ -94,7 +94,7 @@ aside {
     border-bottom: 2px solid rgb(0, 140, 255);
 }
 
-#search-bar button {
+#search-form button {
     float: right;
     padding: 6px;
     border: none;

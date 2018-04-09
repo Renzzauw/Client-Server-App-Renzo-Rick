@@ -19,9 +19,9 @@ html.
             <a class="menu-logged-in" href="/signout">Log Out</a>
             <a class="menu-logged-in" href="/account">Account Settings</a>
             <a class="menu-logged-in" href="/history">Order History</a>
-            <form id="search-bar">
-                <button type="submit">Search</button>
-                <input type="text" placeholder="Search Games...">
+            <form id="search-form">
+                <button id="search-button" type="submit">Search</button>
+                <input id="search-bar" type="text" placeholder="Search Games...">
             </form>   
         </nav>
 
@@ -38,7 +38,7 @@ html.
         <main>
             <aside class="dropdown">
                 <p>Sort by:</p>
-                <select name="sort-by" >
+                <select id="sort" name="sort-by" >
                     <option value="alphabet">Alphabetical Order</option>
                     <option value="price-increasing">Price Increasing</option>
                     <option value="price-decreasing">Price Decreasing</option>         
@@ -58,7 +58,7 @@ html.
             </section>            
         </main>
         <footer>
-            <h3>©GeeGees 2018 - Created by Renzo Schindeler & Rick Boumans</h3>
+            <h3>©GeeGees 2018 - Created by Renzo Schindeler & Rick Boumans (Group 19)</h3>
         </footer>
 
         <!-- scripts -->
