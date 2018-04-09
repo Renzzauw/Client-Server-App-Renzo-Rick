@@ -51,75 +51,53 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/products', function(req, res, next){
-  db.serialize(function() {
-    var resdata = "";
-    db.each("SELECT * FROM Products ORDER BY productname ASC", function(err, row) {
-      pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
-      products.push(pr);
-      resdata = pr.generateProductHtml();
-      res.write(resdata);
-    });
-    res.send();
-  });
-  
-/*
-  // get query
+  // get search query
   var parts = url.parse(req.url, true);
   var query = parts.query;
   var sortMode = query.sort;
   var searchTerm = query.search;
   
-  var productshtml = "";
-  console.log(sortMode);
-  // get products from database based on sortmode
+  // sort by name
   if (sortMode === "alphabet"){
-    console.log("rendering products: sorted alphabet");
     db.serialize(function() {
-      productshtml = "";
+      var resdata = "";
       db.each("SELECT * FROM Products ORDER BY productname ASC", function(err, row) {
         pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
         products.push(pr);
-        productshtml += pr.generateProductHtml();
+        resdata = pr.generateProductHtml();
+        res.write(resdata);
       });
+      res.send();
     });
   }
-  */
-  //console.log("html: "+ productshtml);
 
-  //res.send(productshtml);
-});
-
-
-
-
-
-
-
-/* GET products on home page. */
-/*
-router.get('/products', function(req, res, next){
-  //var sortMode = req.query.sortby;
-
-  var parts = url.parse(req.url, true);
-  var query = parts.query;
-  var sortMode = query.sort;
-  var searchTerm = query.search;
-  
-
-  var productshtml = "";
-  // get all products from the database and put them in an array
-  db.serialize(function() {
-    productshtml = "";
-    db.each("SELECT * FROM Products", function(err, row) {
-      pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
-      products.push(pr);
-      productshtml += pr.generateProductHtml();
+  // sort by price: increasing
+  else if (sortMode === "price-increasing"){
+    db.serialize(function() {
+      var resdata = "";
+      db.each("SELECT * FROM Products ORDER BY price ASC", function(err, row) {
+        pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
+        products.push(pr);
+        resdata = pr.generateProductHtml();
+        res.write(resdata);
+      });
+      res.send();
     });
-  });
+  }
 
-
-  alert(productshtml);
-  res.send(productshtml);
+  // sort by price: increasing
+  else if (sortMode === "price-decreasing"){
+    db.serialize(function() {
+      var resdata = "";
+      db.each("SELECT * FROM Products ORDER BY price DESC", function(err, row) {
+        pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
+        products.push(pr);
+        resdata = pr.generateProductHtml();
+        res.write(resdata);
+      });
+      res.send();
+    });
+  }
 });
-*/
+
 module.exports = router;

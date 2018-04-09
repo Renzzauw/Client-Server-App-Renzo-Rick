@@ -30,11 +30,15 @@ $.get("/products?sortby="+sortMode, function ( data ) {
 
 
 
-
+$("#sort").change(function (){
+    $("#catalogue").empty().load("/products?sort=" + $("#sort").val(), function(){
+        
+    });
+});
 
 
 $("#catalogue").empty().load("/products?sort=" + $("#sort").val(), function(){
-    //console.log("products loaded");
+
 });
 
 /*
