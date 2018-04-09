@@ -56,48 +56,69 @@ router.get('/products', function(req, res, next){
   var query = parts.query;
   var sortMode = query.sort;
   var searchTerm = query.search;
-  
-  // sort by name
-  if (sortMode === "alphabet"){
-    db.serialize(function() {
-      var resdata = "";
-      db.each("SELECT * FROM Products ORDER BY productname ASC", function(err, row) {
-        pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
-        products.push(pr);
-        resdata = pr.generateProductHtml();
-        res.write(resdata);
+  console.log(searchTerm);
+  // no search term is present
+  if (!searchTerm){
+    // sort by name
+    if (sortMode === "alphabet"){
+      db.serialize(function() {
+        var resdata = "";
+        db.each("SELECT * FROM Products ORDER BY productname ASC", function(err, row) {
+          pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
+          products.push(pr);
+          resdata = pr.generateProductHtml();
+          res.write(resdata);
+        });
+        res.send();
       });
-      res.send();
-    });
+    }
+
+    // sort by price: increasing
+    else if (sortMode === "price-increasing"){
+      db.serialize(function() {
+        var resdata = "";
+        db.each("SELECT * FROM Products ORDER BY price ASC", function(err, row) {
+          pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
+          products.push(pr);
+          resdata = pr.generateProductHtml();
+          res.write(resdata);
+        });
+        res.send();
+      });
+    }
+
+    // sort by price: increasing
+    else if (sortMode === "price-decreasing"){
+      db.serialize(function() {
+        var resdata = "";
+        db.each("SELECT * FROM Products ORDER BY price DESC", function(err, row) {
+          pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
+          products.push(pr);
+          resdata = pr.generateProductHtml();
+          res.write(resdata);
+        });
+        res.send();
+      });
+    }
   }
 
-  // sort by price: increasing
-  else if (sortMode === "price-increasing"){
-    db.serialize(function() {
-      var resdata = "";
-      db.each("SELECT * FROM Products ORDER BY price ASC", function(err, row) {
-        pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
-        products.push(pr);
-        resdata = pr.generateProductHtml();
-        res.write(resdata);
+  // search term is present
+  else {
+    // sort by name
+    if (sortMode === "alphabet"){
+      db.serialize(function() {
+        var resdata = "";
+        db.each('SELECT * FROM Products WHERE productname LIKE "%'+searchTerm+'%" ORDER BY productname ASC', function(err, row) {
+          pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
+          products.push(pr);
+          resdata = pr.generateProductHtml();
+          res.write(resdata);
+        });
+        res.send();
       });
-      res.send();
-    });
+    }
   }
-
-  // sort by price: increasing
-  else if (sortMode === "price-decreasing"){
-    db.serialize(function() {
-      var resdata = "";
-      db.each("SELECT * FROM Products ORDER BY price DESC", function(err, row) {
-        pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
-        products.push(pr);
-        resdata = pr.generateProductHtml();
-        res.write(resdata);
-      });
-      res.send();
-    });
-  }
+ 
 });
 
 module.exports = router;

@@ -1,65 +1,13 @@
-/*
-var xhttp;
-var sortMode;
-var dropDown = $(".dropdown").first();
-
-sortmode = dropDown.val();//"alphabetical";
-
-if (window.XMLHttpRequest) {
-    xhttp = new XMLHttpRequest();
-}
-else if (window.ActiveXObject) {
-    xhttp = new ActiveXObject("Microsoft.XMLHTPP");
-}
-else {
-  alert("your browser doe not support XMLHTTP!");
-}
-
-//var url = "?sortby=" + dropDown.nodeValue;
-
-$("#catalogue").empty().load("/products");
-
-$.get("/products?sortby="+sortMode, function ( data ) {
-    $("#catalogue").empty().html(data);
-    console.log("data loaded");
-});
-*/
-
-
-
-
-
-
+// add event "onchange" listener to sorting menu
 $("#sort").change(function (){
-    $("#catalogue").empty().load("/products?sort=" + $("#sort").val(), function(){
-        
-    });
+    $("#catalogue").empty().load("/products?sort=" + $("#sort").val());
 });
 
-
-$("#catalogue").empty().load("/products?sort=" + $("#sort").val(), function(){
-
+// add even "onsubmit" listener to the search form
+$("#search-bar").keyup(function (){
+    console.log("click");
+    $("#catalogue").empty().load("/products?sort=" + $("#sort").val() + "&search=" + $("#search-bar").val());
 });
 
-/*
-$.get("/products", function(data){
-    alert(data);
-    $("#catalogue").html(data);
-});
-*/
-
-
-
-
-
-
-
-/*
-var searchButton = $("#search-button").click(function(){
-    $.get("/products?" + "search=" + $("#search-bar").val() + "&sort=" + $("#sort").val(), function(data){
-        $("#catalogue").html(data);
-    });
-    
-    //$.get("/products");
-});
-*/
+// initialize product sorting with alphabetical order when initially loading index page
+$("#catalogue").empty().load("/products?sort=" + $("#sort").val());
