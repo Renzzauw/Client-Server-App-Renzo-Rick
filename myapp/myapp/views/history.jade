@@ -3,11 +3,12 @@ doctype html
 html.
     <head>
         <meta charset = "utf-8">
-        <meta name="title" content="GeeGees">
+        <meta name="title" content="GeeGees - Order History">
         <meta name="description" content="Your Online Gamestore">
         <meta name="keywords" content="games, gaming, online games, digital, store">
         <link rel="stylesheet" type="text/css" href='/stylesheets/style.css'>
         <link href='https://fonts.googleapis.com/css?family=Alef' rel='stylesheet'>
+        <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>        
     </head>
     <body>
         <!-- top nav menu -->
@@ -18,10 +19,6 @@ html.
             <a class="menu-logged-in" href="/signout">Log Out</a>
             <a class="menu-logged-in" href="/account">Account Settings</a>
             <a class="menu-logged-in" href="/history">Order History</a>
-            <form id="search-bar">
-                <button type="submit">Search</button>
-                <input type="text" placeholder="Search Games...">
-            </form>   
         </nav>
         
         <!-- banner -->
@@ -39,5 +36,8 @@ html.
         <footer>
             <h3>©GeeGees 2018 - Created by Renzo Schindeler & Rick Bouman</h3>
         </footer>
+
+        <!-- scripts -->
+        <script type="text/javascript" src="scripts/adjustNavBar.js"></script>
     </body>
 </html>
