@@ -65,12 +65,14 @@ router.get('/products', function(req, res, next){
       db.serialize(function() {
         var resdata = "";
         db.each("SELECT * FROM Products ORDER BY productname ASC", function(err, row) {
-          pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
+          pr = new Product(row.productid, row.productname, 
+          row.releasedate, row.publisher, row.genre, 
+          row.price, row.stock);         
           products.push(pr);
           resdata = pr.generateProductHtml();
           res.write(resdata);
-        });
-        res.send();
+        }, 
+        function(err, numberOfRetreivedRows){ res.end(); });
       });
     }
 
@@ -79,12 +81,14 @@ router.get('/products', function(req, res, next){
       db.serialize(function() {
         var resdata = "";
         db.each("SELECT * FROM Products ORDER BY price ASC", function(err, row) {
-          pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
+          pr = new Product(row.productid, row.productname, 
+          row.releasedate, row.publisher, row.genre, 
+          row.price, row.stock);         
           products.push(pr);
           resdata = pr.generateProductHtml();
           res.write(resdata);
-        });
-        res.send();
+        }, 
+        function(err, numberOfRetreivedRows){ res.end(); });
       });
     }
 
@@ -93,12 +97,14 @@ router.get('/products', function(req, res, next){
       db.serialize(function() {
         var resdata = "";
         db.each("SELECT * FROM Products ORDER BY price DESC", function(err, row) {
-          pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
+          pr = new Product(row.productid, row.productname, 
+          row.releasedate, row.publisher, row.genre, 
+          row.price, row.stock);         
           products.push(pr);
           resdata = pr.generateProductHtml();
           res.write(resdata);
-        });
-        res.send();
+        }, 
+        function(err, numberOfRetreivedRows){ res.end(); });
       });
     }
   }
@@ -110,44 +116,49 @@ router.get('/products', function(req, res, next){
       db.serialize(function() {
         var resdata = "";
         db.each('SELECT * FROM Products WHERE productname LIKE "%'+searchTerm+'%" ORDER BY productname ASC', function(err, row) {
-          pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
+          pr = new Product(row.productid, row.productname, 
+          row.releasedate, row.publisher, row.genre, 
+          row.price, row.stock);         
           products.push(pr);
           resdata = pr.generateProductHtml();
           res.write(resdata);
-        });
-        res.send();
+        }, 
+        function(err, numberOfRetreivedRows){ res.end(); });
       });
     }
 
     // sort by price: increasing
-    if (sortMode === "price-increasing"){
+    else if (sortMode === "price-increasing"){
       db.serialize(function() {
         var resdata = "";
         db.each('SELECT * FROM Products WHERE productname LIKE "%'+searchTerm+'%" ORDER BY  price ASC', function(err, row) {
-          pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
+          pr = new Product(row.productid, row.productname, 
+          row.releasedate, row.publisher, row.genre, 
+          row.price, row.stock);         
           products.push(pr);
           resdata = pr.generateProductHtml();
           res.write(resdata);
-        });
-        res.send();
+        }, 
+        function(err, numberOfRetreivedRows){ res.end(); });
       });
     }
 
-    // sort by price: decreasing
-    if (sortMode === "price-decreasing"){
+    // sort by price: increasing
+    else if (sortMode === "price-decreasing"){
       db.serialize(function() {
         var resdata = "";
         db.each('SELECT * FROM Products WHERE productname LIKE "%'+searchTerm+'%" ORDER BY  price DESC', function(err, row) {
-          pr = new Product(row.productid, row.productname, row.releasedate, row.publisher, row.genre, row.price, row.stock);         
+          pr = new Product(row.productid, row.productname, 
+          row.releasedate, row.publisher, row.genre, 
+          row.price, row.stock);         
           products.push(pr);
           resdata = pr.generateProductHtml();
           res.write(resdata);
-        });
-        res.send();
+        }, 
+        function(err, numberOfRetreivedRows){ res.end(); });
       });
     }
   }
- 
 });
 
 module.exports = router;
