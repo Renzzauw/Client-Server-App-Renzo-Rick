@@ -32,11 +32,11 @@ class Product {
     var html = "";
     html = '<section class="product-field"><h5>Product ID: '+this.productid+'</h5><h3>'+this.productName+'</h3><h4>'+this.releaseDate+' '+this.publisher+' '+this.genre+'</h4><h5>Stock: '+this.stock+'</h5><img src="/images/products/'+this.productid+'.jpg" alt="game avatar">';
     
-    // check if item is in stock
+    // item is out of stock, disable buy button
     if (this.stock <= 0) {
-      html += '<form><button type="button" class="product-buttons" id="button-'+this.productid+'" disabled>Out of stock</button></form></section>';
+      html += '<form><button onclick="buyProduct('+ this.productid +');" type="button" class="product-buttons" id="button-'+this.productid+'" disabled>Out of stock</button></form></section>';
     }
-    // item is out of stock
+    // item is in stock
     else {
       html += '<form><button type="button" onclick="toggleConfirmationScreen();" class="product-buttons" id="button-'+this.productid+'">Buy for €'+this.price+'</button></form></section>';
     }
