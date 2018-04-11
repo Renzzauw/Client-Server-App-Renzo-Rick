@@ -6,11 +6,9 @@
  // Get the nav menu buttons
 var buttonsLoggedIn = document.getElementsByClassName("menu-logged-in");
 var buttonsLoggedOut = document.getElementsByClassName("menu-logged-out");
-// A session is present
-var cookie = document.cookie;
-console.log(cookie);
 
-if (cookie){
+// A session is present
+if (document.cookie){
     console.log("session found");
     for (var i = 0; i < buttonsLoggedIn.length; i++){
         buttonsLoggedIn[i].style.visibility = "visible";

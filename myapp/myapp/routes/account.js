@@ -17,12 +17,13 @@ router.get('/', function(req, res, next) {
         // visitor has not been logged in, redirect to login page
         res.redirect('/login');
     }
-    else {
-        console.log(req.session);
-        // session detected, get user information and display on page
-        db.get("SELECT * FROM Accounts WHERE userid="+req.session.userid, function(err, row) {
-            res.render('account', { username: row.username, email: row.email, firstname: row.firstname, lastname: row.lastname, password: row.password}); 
-        })   
+    else {             
+        db.serialize(function(){
+            // session detected, get user information and display on page
+            db.get("SELECT * FROM Accounts WHERE userid="+req.session.userid, function(err, row) {
+                res.render('account', { username: row.username, email: row.email, firstname: row.firstname, lastname: row.lastname, password: row.password}); 
+            }); 
+        });           
     }      
 });
 
@@ -31,24 +32,22 @@ router.post('/', function(req, res, next) {
     // get signup data from POST request
     console.log("> Handling changes");
     var found = false;
-    var ui;
-    db.get("SELECT * FROM Accounts WHERE userid="+req.body.userid, function(err, row) {
+    db.get("SELECT * FROM Accounts WHERE userid="+req.session.userid, function(err, row) {
         found = true;
-        ui = row.userid;
     })
     // username already exists
-    if (found && req.body.username != ui) {
+    if (found && req.body.username != req.session.userid) {
       res.render('signup', { error: "Username already exists."});
     }
     // user does not exist yet, proceed to creation of account
     else { 
       // generate userid, add to database create a session
-      var stmt = db.prepare("UPDATE Accounts SET username=?, password=?, email=?, firstname=?, lastname=? WHERE userid=? ");
-      stmt.run(id, req.body.username, req.body.password, req.body.email, req.body.firstname, req.body.lastname, req.session.userid);
-      db.close();
+      db.serialize(function(){
+        var stmt = db.prepare("UPDATE Accounts SET userid=?, username=?, password=?, email=?, firstname=?, lastname=? WHERE userid=? ");
+        stmt.run(req.session.userid, req.body.username, req.body.password, req.body.email, req.body.firstname, req.body.lastname, req.session.userid);
+      });      
       res.redirect('/account', { succes: "profile sucessfully updated!"});
     }
-    db.close();
   });
   
   module.exports = router;

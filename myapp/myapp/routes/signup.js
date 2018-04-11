@@ -25,7 +25,6 @@ db.serialize(function() {
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.cookie({ httpOnly: false});
   if(req.session.userid) {
     res.redirect('/'); 
   }  
@@ -52,27 +51,9 @@ router.post('/', function(req, res, next) {
     db.serialize(function() {
       var id = Math.floor(Math.random() * 10000000);
       var stmt = db.prepare("INSERT INTO Accounts VALUES (?,?,?,?,?,?)");
-      //req.session.userid = id;
       stmt.run(id, req.body.username, req.body.password, req.body.email, req.body.firstname, req.body.lastname);
     });
-    db.close();
-    alert("You have been registered successfully.");
     res.redirect('/login');
-    
-    /*
-    db.serialize(function() {
-    // generate userid, add to database create a session
-    var stmt = db.prepare("INSERT INTO Accounts VALUES (?,?,?,?,?,?)");
-    var id = Math.floor(Math.random() * 10000000);
-    req.session.userid = id;
-    stmt.run(id, req.body.username, req.body.password, req.body.email, req.body.firstname, req.body.lastname);
-    db.close();
-    res.redirect('/');
-    alert("You have been registered successfully.");
-  }
-  //db.close();
-    );*/
-
   }
 });
 

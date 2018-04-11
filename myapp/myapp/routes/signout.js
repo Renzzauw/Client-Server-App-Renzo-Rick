@@ -3,13 +3,8 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) { 
     res.clearCookie('connect.sid');
-    /*
-    req.session.destroy(function(err) {
-        res.redirect('/');
-    });
-    //res.redirect('/');
-    */
-   res.redirect('/');
+    req.session.destroy();
+    res.redirect('/');
 });
 
 module.exports = router;
