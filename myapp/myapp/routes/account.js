@@ -46,7 +46,7 @@ router.post('/', function(req, res, next) {
         var stmt = db.prepare("UPDATE Accounts SET userid=?, username=?, password=?, email=?, firstname=?, lastname=? WHERE userid=? ");
         stmt.run(req.session.userid, req.body.username, req.body.password, req.body.email, req.body.firstname, req.body.lastname, req.session.userid);
       });      
-      res.redirect('/account', { succes: "profile sucessfully updated!"});
+      res.render('account', { succes: "profile sucessfully updated!", username: req.body.username, email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, password: req.body.password});
     }
   });
   

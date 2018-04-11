@@ -36,9 +36,9 @@ router.post('/', function(req, res, next) {
                    }
     });
   });
-  
   // get login data from POST request
   console.log("> Handling a login");
+  console.log(foundMatch);
   // match found
   if (req.body.username === foundMatch.username && req.body.password === foundMatch.password) {
     console.log("  - account found.");
@@ -52,6 +52,7 @@ router.post('/', function(req, res, next) {
     //req.session.userid = id;
     res.render('login', { error: 'Username or password is wrong, try again.' });
   }
+ 
 });
 
 module.exports = router;
