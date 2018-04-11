@@ -3,9 +3,11 @@ $("#sort").change(function (){
     $("#catalogue").empty().load("/products?sort=" + $("#sort").val());
 });
 
+// disable submitting when using the search bar
+$("#search-form").submit(false);
+
 // add even "onsubmit" listener to the search form
-$("#search-bar").keyup(function (){
-    console.log("click");
+$("#search-bar").on('input', function(event){
     $("#catalogue").empty().load("/products?sort=" + $("#sort").val() + "&search=" + $("#search-bar").val());
 });
 
