@@ -25,6 +25,7 @@ db.serialize(function() {
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+  res.cookie({ httpOnly: false});
   if(req.session.userid) {
     res.redirect('/'); 
   }  

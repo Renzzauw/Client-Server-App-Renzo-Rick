@@ -26,6 +26,8 @@ app.use(session({
   secret: 'thisisaveryverysneekysecret',
   resave: true,
   saveUninitialized: false,
+  //httpOnly: false,
+  cookie: {httpOnly: false }
 }));
 
 // view engine setup

@@ -12,16 +12,6 @@ var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database(file);
 var foundMatch = {};
  
-db.serialize(function() {
-  db.each("SELECT userid, username, password FROM Accounts", function(err, row) {
-    foundMatch = {
-                   userid: row.userid,
-                   username: row.username,
-                   password: row.password 
-                 }
-  });
-});
-
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   // check if a user is already logged in, if so redirect to homepage
@@ -30,13 +20,23 @@ router.get('/', function(req, res, next) {
   }
   // no logged in user, proceed to login page
   else {
-    res.render('login', { title: 'Login' });
+    res.render('login');
   }
   
 });
 
 /* POST users listing. */
 router.post('/', function(req, res, next) {
+  db.serialize(function() {
+    db.get("SELECT userid, username, password FROM Accounts", function(err, row) {
+      foundMatch = {
+                     userid: row.userid,
+                     username: row.username,
+                     password: row.password 
+                   }
+    });
+  });
+  
   // get login data from POST request
   console.log("> Handling a login");
   // match found
@@ -49,8 +49,8 @@ router.post('/', function(req, res, next) {
   // incorrect login data, display error message
   else {
     console.log("  - account not found.");  
-    req.session.userid = id;
-    res.render('login', { title: 'Login', error: 'Username or password is wrong, try again.' });
+    //req.session.userid = id;
+    res.render('login', { error: 'Username or password is wrong, try again.' });
   }
 });
 

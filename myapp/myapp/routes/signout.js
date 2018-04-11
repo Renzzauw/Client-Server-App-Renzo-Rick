@@ -2,10 +2,14 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next) { 
+    res.clearCookie('connect.sid');
+    /*
     req.session.destroy(function(err) {
-        // cannot access session here
+        res.redirect('/');
     });
-    res.redirect('/');
+    //res.redirect('/');
+    */
+   res.redirect('/');
 });
 
 module.exports = router;

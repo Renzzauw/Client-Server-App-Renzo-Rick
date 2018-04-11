@@ -4,13 +4,14 @@
  */
 
  // Get the nav menu buttons
-var c = document.Session;
-//console.log(c["userid"]);
 var buttonsLoggedIn = document.getElementsByClassName("menu-logged-in");
 var buttonsLoggedOut = document.getElementsByClassName("menu-logged-out");
-
 // A session is present
-if (c){
+var cookie = document.cookie;
+console.log(cookie);
+
+if (cookie){
+    console.log("session found");
     for (var i = 0; i < buttonsLoggedIn.length; i++){
         buttonsLoggedIn[i].style.visibility = "visible";
     }
@@ -20,6 +21,7 @@ if (c){
 }
 // A session is not present
 else {
+    console.log("session NOT found");
     for (var i = 0; i < buttonsLoggedIn.length; i++){
         buttonsLoggedIn[i].style.visibility = "hidden";
     }
