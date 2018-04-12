@@ -1,0 +1,1 @@
+$("#history").load("/history/his");

@@ -10,25 +10,29 @@ router.get('/', function(req, res, next) {
         res.redirect('/'); 
     }
     else {
-        var results = "";
-        // get all history that is linked to the user from the database
-        db.serialize(function(){
-            db.each('SELECT * FROM Orders WHERE userid=' + req.session.userid + ' ORDER BY date DESC', function(err, row){
-                var line = row.date + " " + row.productid + " " + row.price + "\n";                
-                results += line;
-            }, function() {
-                // no results found
-                if (results === ""){
-                    res.render('history', { history: "No purchase history available" });
-                }
-                // results have been found, return them
-                else {
-                    res.render('history', { history: results });
-                }  
-            });
-        });
-             
+        res.render('history');             
     }       
+});
+
+router.get('/his', function(req, res, next){
+    var results = "";
+    // get all history that is linked to the user from the database
+    db.serialize(function(){
+        db.each('SELECT * FROM Orders WHERE userid=' + req.session.userid + ' ORDER BY date DESC', function(err, row){
+            var line = "<h4>Date: " + row.date + "\t | Product ID: " + row.productid + "\t | " + row.price.replace('.', ',') + "</h4>";                
+            res.write(line);
+            results += line;
+        }, function() {
+            // no results found
+            if (results === ""){
+                res.end('No order history found.');
+            }
+            // results have been found
+            else {
+                res.end();
+            }  
+        });
+    });
 });
 
 module.exports = router;
