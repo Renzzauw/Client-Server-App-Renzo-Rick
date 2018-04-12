@@ -35,23 +35,26 @@ router.post('/', function(req, res, next) {
                      password: row.password 
                    }
     });
+
+    // get login data from POST request
+    console.log("> Handling a login");
+    console.log(foundMatch);
+    // match found
+    if (req.body.username === foundMatch.username && req.body.password === foundMatch.password) {
+      console.log("  - account found.");
+      // add userid to session and redirect to index page
+      req.session.userid = foundMatch.userid;
+      res.redirect('/');
+    }
+    // incorrect login data, display error message
+    else {
+      console.log("  - account not found.");  
+      //req.session.userid = id;
+      res.render('login', { error: 'Username or password is wrong, try again.' });
+    }
+
   });
-  // get login data from POST request
-  console.log("> Handling a login");
-  console.log(foundMatch);
-  // match found
-  if (req.body.username === foundMatch.username && req.body.password === foundMatch.password) {
-    console.log("  - account found.");
-    // add userid to session and redirect to index page
-    req.session.userid = foundMatch.userid;
-    res.redirect('/');
-  }
-  // incorrect login data, display error message
-  else {
-    console.log("  - account not found.");  
-    //req.session.userid = id;
-    res.render('login', { error: 'Username or password is wrong, try again.' });
-  }
+  
  
 });
 

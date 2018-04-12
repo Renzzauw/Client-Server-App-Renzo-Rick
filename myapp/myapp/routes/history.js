@@ -13,19 +13,21 @@ router.get('/', function(req, res, next) {
         var results = "";
         // get all history that is linked to the user from the database
         db.serialize(function(){
-            db.each('SELECT * FROM Orders WHERE userid=' + req.session.userid + 'ORDER BY date DESC', function(err, row){
-                var line = row.date + " " + row.productid + " " + row.price + "\n";
+            db.each('SELECT * FROM Orders WHERE userid=' + req.session.userid + ' ORDER BY date DESC', function(err, row){
+                var line = row.date + " " + row.productid + " " + row.price + "\n";                
                 results += line;
+            }, function() {
+                // no results found
+                if (results === ""){
+                    res.render('history', { history: "No purchase history available" });
+                }
+                // results have been found, return them
+                else {
+                    res.render('history', { history: results });
+                }  
             });
         });
-        // no results found
-        if (results === ""){
-            res.render('history', { history: "No purchase history available" });
-        }
-        // results have been found, return them
-        else {
-            res.render('history', { history: results });
-        }      
+             
     }       
 });
 
