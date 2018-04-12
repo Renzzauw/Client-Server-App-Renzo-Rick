@@ -45,9 +45,13 @@ header {
 }
 
 aside {
+    float: left;
     width: 100%;
-    height: 70px;
+    height: 350px;
     background-color: rgba(0, 140, 255, 0.5);
+    color: gray;
+    margin: 20px;
+    padding: 20px;
 }
 
 #index-banner {
@@ -127,10 +131,17 @@ aside {
     cursor: pointer;
 }
 
-.dropdown {
-    color: gray;
-    margin: 20px;
-    padding: 20px;
+#load-more-button {
+    background-color: rgb(0, 140, 255);
+    color: white;
+    width: 400px;
+    height: 75px;
+    font-size: 135%;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 0;
 }
 
 .product-field {
@@ -182,7 +193,7 @@ aside {
 }
 
 .product-field h5 {
-    margin: 5px;
+    margin: 8px;
 }
 
 #confirmation-screen {

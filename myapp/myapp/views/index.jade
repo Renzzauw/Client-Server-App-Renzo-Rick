@@ -35,17 +35,33 @@ html.
 
         <!-- main content page -->  
         <main>
-            <aside class="dropdown">
-                <p>Sort by:</p>
-                <select id="sort" name="sort-by" >
-                    <option value="alphabet">Alphabetical Order</option>
-                    <option value="price-increasing">Price Increasing</option>
-                    <option value="price-decreasing">Price Decreasing</option>         
-                </select>               
+            <aside class="filters">
+                <form>
+                    <h4>Sort by:</h4>
+                    <select id="sort" name="sort-by" >
+                        <option value="alphabet">Alphabetical Order</option>
+                        <option value="price-increasing">Price Increasing</option>
+                        <option value="price-decreasing">Price Decreasing</option>         
+                    </select> 
+                    <h4>Filter results:</h4>
+                    <input type="checkbox" id="shooter" name="shooter" checked>
+                    <label for="shooter">Shooter</label>          
+                    <input type="checkbox" id="racing" name="racing" checked>
+                    <label for="racing">Racing</label>       
+                    <input type="checkbox" id="adventure" name="adventure" checked>
+                    <label for="adventure">Adventure</label>  
+                    <input type="checkbox" id="action" name="action" checked>
+                    <label for="action">Action</label> 
+                    <p>Minimum price:</p>
+                    <input id="price-min" type="number">
+                    <p>Maximum price:</p>
+                    <input id="price-max" type="number">
+                    <button>Reset filters</button>
+                </form>
             </aside>
             
             <section id="confirmation-screen"> 
-                <h3>Are you sure you want to buy this product?</h3>
+                <h3 id="confirmation-text">Are you sure you want to buy this product?</h3>
                 <form>
                     <button type="button" id="confirm">Confirm</button> 
                     <button type="button" id="cancel">Cancel</button>  
@@ -54,7 +70,8 @@ html.
                                    
             <section id="catalogue">
 
-            </section>            
+            </section>     
+            <button id="load-more-button">Load more products</button>       
         </main>
         <footer>
             <h3>©GeeGees 2018 - Created by Renzo Schindeler & Rick Boumans (Group 19)</h3>

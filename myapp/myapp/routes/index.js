@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var url = require('url');
+var dateTime = require('node-datetime');
 
 var fs = require("fs");
 var file = "databases/database.db";
@@ -34,11 +35,11 @@ class Product {
     
     // item is out of stock, disable buy button
     if (this.stock <= 0) {
-      html += '<form><button onclick="buyProduct('+ this.productid +');" type="button" class="product-buttons" id="button-'+this.productid+'" disabled>Out of stock</button></form></section>';
+      html += '<form><button type="button" class="product-buttons" id="button-'+this.productid+'" disabled>Out of stock</button></form></section>';
     }
     // item is in stock
     else {
-      html += '<form><button type="button" onclick="toggleConfirmationScreen();" class="product-buttons" id="button-'+this.productid+'">Buy for €'+this.price+'</button></form></section>';
+      html += '<form><button type="button" onclick="buyProduct('+ this.productid +', \''+ this.productName +'\', \''+ this.price +'\');" class="product-buttons" id="button-'+this.productid+'">Buy for €'+this.price+'</button></form></section>';
     }
     return html;
   }
@@ -48,6 +49,22 @@ class Product {
 router.get('/', function(req, res, next) { 
   // render index page
   res.render('index');
+});
+
+/* POST home page. */
+router.post('/', function(req, res, next) {
+  //console.log("POST ONTVANGEN: "+ req.body.productid+" "+req.session.userid);
+  // order toevoegen aan database
+  // product stock -1
+
+  db.serialize(function() {
+    var stmt = db.prepare('UPDATE Products SET stock = stock - 1 WHERE productid=?');
+    stmt.run(req.body.productid);
+    var dt = dateTime.create();
+    var formatted = dt.format('Y-m-d H:M:S');
+    var stmt2 = db.prepare('INSERT INTO Orders VALUES (?,?,?,?)');
+    stmt2.run(formatted, req.body.productid, parseFloat((req.body.productprice).replace(',', '.')), req.session.userid);
+  });
 });
 
 /* GET products on home page. */
