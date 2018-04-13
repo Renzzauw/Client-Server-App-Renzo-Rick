@@ -12,6 +12,7 @@ $("#publisher-checkboxes").load("/publishers");
 // get all checkboxes and check if they are checked
 var checkboxList = $("[type=checkbox]");
 var checkQueries = "";
+console.log(checkboxList);
 
 // add event listeners to each checkbox
 for (var j = 0; j < checkboxList.length; j++) {
@@ -32,12 +33,9 @@ for (var j = 0; j < checkboxList.length; j++) {
                 checkQueries += checkboxList[i].attr('id') + "=false&";
             }
         }
+        console.log(checkQueries);
     })
 }
-
-// get min & max price fields
-var min = $("#price-min");
-var max = $("#price-max");
 
 // disable submitting when using the search bar
 $("#search-form").submit(false);
