@@ -36,7 +36,7 @@ html.
         <!-- main content page -->  
         <main>
             <aside class="filters">
-                <form>
+                <form id="filters-form">
                     <h4>Sort by:</h4>
                     <select id="sort" name="sort-by" >
                         <option value="alphabet">Alphabetical Order</option>
@@ -44,19 +44,16 @@ html.
                         <option value="price-decreasing">Price Decreasing</option>         
                     </select> 
                     <h4>Filter results:</h4>
-                    <input type="checkbox" id="shooter" name="shooter" checked>
-                    <label for="shooter">Shooter</label>          
-                    <input type="checkbox" id="racing" name="racing" checked>
-                    <label for="racing">Racing</label>       
-                    <input type="checkbox" id="adventure" name="adventure" checked>
-                    <label for="adventure">Adventure</label>  
-                    <input type="checkbox" id="action" name="action" checked>
-                    <label for="action">Action</label> 
+                    <h5>Genre</h5>
+                    <div id="genre-checkboxes"></div>
+                    <h5>Publisher</h5>
+                    <div id="publisher-checkboxes"></div>
+                    <h5>Price range</h5>
                     <p>Minimum price:</p>
                     <input id="price-min" type="number">
                     <p>Maximum price:</p>
                     <input id="price-max" type="number">
-                    <button>Reset filters</button>
+                    <button type="reset">Reset filters</button>                    
                 </form>
             </aside>
             

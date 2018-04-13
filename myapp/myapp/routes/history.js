@@ -19,7 +19,7 @@ router.get('/his', function(req, res, next){
     // get all history that is linked to the user from the database
     db.serialize(function(){
         db.each('SELECT * FROM Orders WHERE userid=' + req.session.userid + ' ORDER BY date DESC', function(err, row){
-            var line = "<h4>Date: " + row.date + "\t | Product ID: " + row.productid + "\t | " + row.price.replace('.', ',') + "</h4>";                
+            var line = "<h4>Date: " + row.date + "\t | Product ID: " + row.productid + "\t | " + row.price + "</h4>";                
             res.write(line);
             results += line;
         }, function() {

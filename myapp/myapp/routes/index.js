@@ -53,10 +53,6 @@ router.get('/', function(req, res, next) {
 
 /* POST home page. */
 router.post('/', function(req, res, next) {
-  //console.log("POST ONTVANGEN: "+ req.body.productid+" "+req.session.userid);
-  // order toevoegen aan database
-  // product stock -1
-
   db.serialize(function() {
     var stmt = db.prepare('UPDATE Products SET stock = stock - 1 WHERE productid=?');
     stmt.run(req.body.productid);
@@ -66,6 +62,40 @@ router.post('/', function(req, res, next) {
     stmt2.run(formatted, req.body.productid, parseFloat((req.body.productprice).replace(',', '.')), req.session.userid);
   });
 });
+
+/* GET all product genres */
+router.get('/genres', function(req, res, next){ 
+  db.serialize(function() {
+    db.each('SELECT DISTINCT genre FROM Products', function(err, row) {
+      res.write('<input type="checkbox" id="'+ row.genre +'" name="'+ row.genre +'" checked><label for="'+ row.genre +'">'+ row.genre +'</label>');
+    }, function(err, numberOfRetreivedRows){ res.end(); });
+  });
+});
+
+/* GET all product publishers */
+router.get('/publishers', function(req, res, next){ 
+  db.serialize(function() {
+    db.each('SELECT DISTINCT publisher FROM Products', function(err, row) {
+      res.write('<input type="checkbox" id="'+ row.publisher +'" name="'+ row.publisher +'" checked><label for="'+ row.publisher +'">'+ row.publisher +'</label>');
+    }, function(err, numberOfRetreivedRows){ res.end(); });
+  });
+});
+
+/* GET minimum and maximum price of all products */
+router.get('/prices', function(req, res, next){ 
+  db.serialize(function() {
+    db.get('SELECT MIN(price) FROM Products', function(err, row) {
+      res.write(row.price);
+    });
+  });
+  db.serialize(function() {
+    db.get('SELECT MAX(price) FROM Products', function(err, row) {
+      res.write(row.price);
+    }, function(err, numberOfRetreivedRows){ res.end(); });
+  });
+});
+
+
 
 /* GET products on home page. */
 router.get('/products', function(req, res, next){
