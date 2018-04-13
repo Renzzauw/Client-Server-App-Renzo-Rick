@@ -43,7 +43,7 @@ $("#search-form").submit(false);
 
 // add even "onsubmit" listener to the search form
 $("#search-bar").on('input', function(event){
-    $("#catalogue").empty().load("/products?sort=" + $("#sort").val() + "&search=" + $("#search-bar").val() + "&" + checkQueries);
+    $("#catalogue").load("/products?sort=" + $("#sort").val() + "&search=" + $("#search-bar").val() + "&" + checkQueries);
 });
 
 // Send search configuration to server and load products
@@ -57,6 +57,6 @@ $('#filters-form').change(function(){
 });
 
 // initialize product sorting with alphabetical order when initially loading index page
-$("#catalogue").empty().load("/products?sort=alphabet");
+$("#catalogue").load("/products?sort=alphabet");
 
 
