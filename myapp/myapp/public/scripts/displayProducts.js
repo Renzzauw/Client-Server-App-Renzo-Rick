@@ -5,6 +5,7 @@ $("#sort").change(function (){
     $("#catalogue").empty().load("/products?sort=" + $("#sort").val());
 });*/
 
+// load checkboxes for each genre and publisher
 $("#genre-checkboxes").load("/genres");
 $("#publisher-checkboxes").load("/publishers");
 
