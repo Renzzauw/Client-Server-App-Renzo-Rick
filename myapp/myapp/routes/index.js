@@ -84,14 +84,39 @@ router.get('/products', function(req, res, next){
   var racing = query.racing;
   var platformer = query.platformer;
   var sports = query.sports;
-  var othersgenre = query.othergenre;
+  var adventure = query.adventure;
+  var horror = query.horror;
+  var mmorpg = query.mmorpg;
+  var rpg = query.rpg;
+  var strategy = query.strategy;
+  var interactivefilm = query.interactivefilm;
+
 
   // publishers
   var activision = query.activision;
   var ubisoft = query.ubisoft;
   var ea = query.ea;
+  var telltale = query.telltale;
+  var teammeat = query.teammeat;
+  var studiomdhr = query.studiomdhr;
+  var redbarrels = query.redbarrels;
+  var pubgcorporation = query.pubgcorporation;
+  var monolith = query.monolith;
+  var guerrillagames = query.guerrillagames;
+  var ghostgames = query.ghostgames;
+  var fromsoftware = query.fromsoftware;
+  var firaxisgames = query.firaxisgames;
+  var ensemblestudios = query.ensemblestudios;
+  var elinemedia = query.elinemedia;
+  var dontnod = query.dontnod;
+  var crystaldynamics = query.crystaldynamics;
+  var cdprojektred = query.cdprojektred;
+  var bungie = query.bungie;
+  var activision = query.activision;
+  var blizzard = query.blizzard;
   var nintendo = query.nintendo;
-  var otherpublisher = query.otherpublisher;
+
+
 
   function generateSQL(){
     var sql = 'SELECT * FROM Products WHERE ';
@@ -104,6 +129,37 @@ router.get('/products', function(req, res, next){
     if (racing){ sql += 'genre="racing" OR '; }
     if (platformer){ sql += 'genre="platformer" OR '; }
     if (sports){ sql += 'genre="sports" OR '; }
+    if (adventure){ sql += 'genre="adventure" OR '; }
+    if (interactivefilm){ sql += 'genre="interactivefilm" OR '; }
+    if (mmorpg){ sql += 'genre="mmorpg" OR '; }
+    if (rpg){ sql += 'genre="rpg" OR '; }
+    if (strategy){ sql += 'genre="strategy" OR '; }
+    if (horror){ sql += 'genre="horror" OR '; }
+
+    if (ubisoft){ sql += 'publisher="ubisoft" OR '; }
+    if (activision){ sql += 'publisher="activision" OR '; }
+    if (ea){ sql += 'publisher="ea" OR '; }
+    if (nintendo){ sql += 'publisher="nintendo" OR '; }
+    if (telltale){ sql += 'publisher="telltale" OR '; }
+    if (teammeat){ sql += 'publisher="teammeat" OR '; }
+    if (studiomdhr){ sql += 'publisher="studiomdhr" OR '; }
+    if (redbarrels){ sql += 'publisher="redbarrels" OR '; }
+    if (pubgcorporation){ sql += 'publisher="pubgcorporation" OR '; }
+    if (monolith){ sql += 'publisher="monolith" OR '; }
+    if (guerrillagames){ sql += 'publisher="guerrillagames" OR '; }
+    if (ghostgames){ sql += 'publisher="ghostgames" OR '; }
+    if (fromsoftware){ sql += 'publisher="fromsoftware" OR '; }
+    if (firaxisgames){ sql += 'publisher="firaxisgames" OR '; }
+    if (ensemblestudios){ sql += 'publisher="ensemblestudios" OR '; }
+    if (elinemedia){ sql += 'publisher="elinemedia" OR '; }
+    if (dontnod){ sql += 'publisher="dontnod" OR '; }
+    if (crystaldynamics){ sql += 'publisher="crystaldynamics" OR '; }
+    if (cdprojektred){ sql += 'publisher="cdprojektred" OR '; }
+    if (bungie){ sql += 'publisher="bungie" OR '; }
+    if (blizzard){ sql += 'publisher="blizzard" OR '; }
+    if (activision){ sql += 'publisher="activision" OR '; }
+
+
     sql += '"0=1"';
     sql += "ORDER BY ";
     if (sortMode === "alphabet"){
