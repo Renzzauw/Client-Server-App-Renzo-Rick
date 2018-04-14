@@ -39,7 +39,7 @@ class Product {
     }
     // item is in stock
     else {
-      html += '<form><button type="button" onclick="buyProduct('+ this.productid +', \''+ this.productName +'\', \''+ this.price +'\');" class="product-buttons" id="button-'+this.productid+'">Buy for €'+this.price+'</button></form></section>';
+      html += '<form><button type="button" onclick="buyProduct('+ this.productid +',&quot;'+ this.productName +'&quot;,'+ this.price +');" class="product-buttons" id="button-'+this.productid+'">Buy for €'+this.price+'</button></form></section>';
     }
     return html;
   }
@@ -94,8 +94,6 @@ router.get('/prices', function(req, res, next){
     }, function(err, numberOfRetreivedRows){ res.end(); });
   });
 });
-
-
 
 /* GET products on home page. */
 router.get('/products', function(req, res, next){
