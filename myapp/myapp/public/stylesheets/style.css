@@ -72,7 +72,7 @@ aside {
     position: fixed;
     top: 99;
     overflow: hidden;
-    background-color: rgba(51, 51, 51, 0.3);
+    background-color: rgba(51, 51, 51, 0.9);
     box-shadow: 0 5px 20px rgba(26, 26, 26, 0.2);
     width: 100%;
     border-bottom: 2px solid rgb(0, 140, 255);
@@ -151,7 +151,7 @@ aside {
 .product-field {
     display: inline-grid;
     width: 250px;
-    height: 30%;
+    height: 550px;
     margin: 20px;
     padding: 20px;
     background-color: rgb(17, 17, 17);
