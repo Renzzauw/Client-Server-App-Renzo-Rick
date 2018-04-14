@@ -39,7 +39,7 @@ class Product {
     }
     // item is in stock
     else {
-      html += '<form><button type="button" onclick="buyProduct('+ this.productid +',&quot;'+ this.productName +'&quot;,'+ this.price +');" class="product-buttons" id="button-'+this.productid+'">Buy for €'+this.price+'</button></form></section>';
+      html += '<form><button type="button" onclick="buyProduct('+ this.productid +',&quot;'+ this.productName +'&quot;,&quot;'+ this.price +'&quot;);" class="product-buttons" id="button-'+this.productid+'">Buy for €'+this.price+'</button></form></section>';
     }
     return html;
   }
@@ -67,7 +67,7 @@ router.post('/', function(req, res, next) {
 router.get('/genres', function(req, res, next){ 
   db.serialize(function() {
     db.each('SELECT DISTINCT genre FROM Products', function(err, row) {
-      res.write('<input type="checkbox" id="'+ row.genre +'" name="'+ row.genre +'" checked><label for="'+ row.genre +'">'+ row.genre +'</label>');
+      res.write('<input type="checkbox" class="genrecheckboxes" id="'+ row.genre +'" name="'+ row.genre +'" checked><label for="'+ row.genre +'">'+ row.genre +'</label>');
     }, function(err, numberOfRetreivedRows){ res.end(); });
   });
 });
@@ -76,7 +76,7 @@ router.get('/genres', function(req, res, next){
 router.get('/publishers', function(req, res, next){ 
   db.serialize(function() {
     db.each('SELECT DISTINCT publisher FROM Products', function(err, row) {
-      res.write('<input type="checkbox" id="'+ row.publisher +'" name="'+ row.publisher +'" checked><label for="'+ row.publisher +'">'+ row.publisher +'</label>');
+      res.write('<input type="checkbox" class="publisher-checkboxes" id="'+ row.publisher +'" name="'+ row.publisher +'" checked><label for="'+ row.publisher +'">'+ row.publisher +'</label>');
     }, function(err, numberOfRetreivedRows){ res.end(); });
   });
 });
