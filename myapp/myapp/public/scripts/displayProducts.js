@@ -1,10 +1,13 @@
+var amount = 5;
+
 // function to create url with all the queries
 function createURL() {
     var url = "/products?sort="
             + $("#sort").val()                              // sort mode
             + "&search=" + $("#search-bar").val()           // searchbar value
             + "&min=" + $("#price-min").val()               // minimum price range
-            + "&max=" + $("#price-max").val();              // maximum price range
+            + "&max=" + $("#price-max").val()               // maximum price range
+            + "&amount=" + amount;                          // amount shown 
     // get selected genres
     if ($("#action").is(":checked")){url += "&action=true"} else {url += "&action=false"}
     if ($("#shooter").is(":checked")){url += "&shooter=true"} else {url += "&shooter=false"}
@@ -38,3 +41,8 @@ $('#filters-form').change(function(){
 
 // initialize product loading
 $("#catalogue").load(createURL());
+
+$("#load-more-button").click(function(){
+    amount += 5;
+    $("#catalogue").load(createURL());
+});

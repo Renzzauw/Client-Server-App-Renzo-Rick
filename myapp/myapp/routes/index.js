@@ -16,6 +16,8 @@ var db = new sqlite3.Database(file);
 var products = [];
 var orderMode = [];
 
+
+
 // Product class for generating html to showcase the product
 class Product {
   constructor(productid, productName, releaseDate, publisher, genre, price, stock){
@@ -31,7 +33,7 @@ class Product {
   // Function that generates and returns fitting html if a product is in stock or not
   generateProductHtml() {
     var html = "";
-    html = '<section class="product-field"><h5>Product ID: '+this.productid+'</h5><h3>'+this.productName+'</h3><h4>Release date: '+this.releaseDate+'</h4><h4>Developer: '+this.publisher+'</h4><h4>'+this.genre+'</h4><h5>Stock: '+this.stock+'</h5><img src="/images/products/'+this.productid+'.jpg" alt="game avatar">';
+    html = '<section class="product-field"><h5>Product ID: '+this.productid+'</h5><h3>'+this.productName+'</h3><h4>Release date: '+this.releaseDate+'</h4><h4>Developer: '+this.publisher+'</h4><h4>'+this.genre+'</h4><h5>Stock: '+this.stock+'</h5><img src="/images/products/'+this.productid+'.jpg" alt="game avatar"></img>';
     
     // item is out of stock, disable buy button
     if (this.stock <= 0) {
@@ -102,6 +104,7 @@ router.get('/products', function(req, res, next){
   var query = parts.query;
   var sortMode = query.sort;
   var searchTerm = query.search;
+  var amountLimit = query.amount;
   
   // no search term is present
   if (!searchTerm){
@@ -109,13 +112,17 @@ router.get('/products', function(req, res, next){
     if (sortMode === "alphabet"){
       db.serialize(function() {
         var resdata = "";
+        var counter = 0;
         db.each("SELECT * FROM Products ORDER BY productname ASC", function(err, row) {
-          pr = new Product(row.productid, row.productname, 
-          row.releasedate, row.publisher, row.genre, 
-          row.price, row.stock);         
-          products.push(pr);
-          resdata = pr.generateProductHtml();
-          res.write(resdata);
+          if(counter < amountLimit){
+            pr = new Product(row.productid, row.productname, 
+            row.releasedate, row.publisher, row.genre, 
+            row.price, row.stock);         
+            products.push(pr);
+            resdata = pr.generateProductHtml();
+            res.write(resdata);
+          }
+          counter++;
         }, 
         function(err, numberOfRetreivedRows){ res.end(); });
       });
@@ -125,13 +132,16 @@ router.get('/products', function(req, res, next){
     else if (sortMode === "price-increasing"){
       db.serialize(function() {
         var resdata = "";
+        var counter = 0;
         db.each("SELECT * FROM Products ORDER BY price ASC", function(err, row) {
-          pr = new Product(row.productid, row.productname, 
-          row.releasedate, row.publisher, row.genre, 
-          row.price, row.stock);         
-          products.push(pr);
-          resdata = pr.generateProductHtml();
-          res.write(resdata);
+          if(counter < amountLimit){
+            pr = new Product(row.productid, row.productname, 
+            row.releasedate, row.publisher, row.genre, 
+            row.price, row.stock);         
+            products.push(pr);
+            resdata = pr.generateProductHtml();
+            res.write(resdata);
+          }
         }, 
         function(err, numberOfRetreivedRows){ res.end(); });
       });
@@ -141,13 +151,16 @@ router.get('/products', function(req, res, next){
     else if (sortMode === "price-decreasing"){
       db.serialize(function() {
         var resdata = "";
+        var counter = 0;
         db.each("SELECT * FROM Products ORDER BY price DESC", function(err, row) {
-          pr = new Product(row.productid, row.productname, 
-          row.releasedate, row.publisher, row.genre, 
-          row.price, row.stock);         
-          products.push(pr);
-          resdata = pr.generateProductHtml();
-          res.write(resdata);
+          if(counter < amountLimit){
+            pr = new Product(row.productid, row.productname, 
+            row.releasedate, row.publisher, row.genre, 
+            row.price, row.stock);         
+            products.push(pr);
+            resdata = pr.generateProductHtml();
+            res.write(resdata);
+          }
         }, 
         function(err, numberOfRetreivedRows){ res.end(); });
       });
@@ -160,13 +173,16 @@ router.get('/products', function(req, res, next){
     if (sortMode === "alphabet"){
       db.serialize(function() {
         var resdata = "";
+        var counter = 0;
         db.each('SELECT * FROM Products WHERE productname LIKE "%'+searchTerm+'%" ORDER BY productname ASC', function(err, row) {
-          pr = new Product(row.productid, row.productname, 
-          row.releasedate, row.publisher, row.genre, 
-          row.price, row.stock);         
-          products.push(pr);
-          resdata = pr.generateProductHtml();
-          res.write(resdata);
+          if(counter < amountLimit){
+            pr = new Product(row.productid, row.productname, 
+            row.releasedate, row.publisher, row.genre, 
+            row.price, row.stock);         
+            products.push(pr);
+            resdata = pr.generateProductHtml();
+            res.write(resdata);
+          }
         }, 
         function(err, numberOfRetreivedRows){ res.end(); });
       });
@@ -176,13 +192,16 @@ router.get('/products', function(req, res, next){
     else if (sortMode === "price-increasing"){
       db.serialize(function() {
         var resdata = "";
+        var counter = 0;
         db.each('SELECT * FROM Products WHERE productname LIKE "%'+searchTerm+'%" ORDER BY  price ASC', function(err, row) {
-          pr = new Product(row.productid, row.productname, 
-          row.releasedate, row.publisher, row.genre, 
-          row.price, row.stock);         
-          products.push(pr);
-          resdata = pr.generateProductHtml();
-          res.write(resdata);
+          if(counter < amountLimit){
+            pr = new Product(row.productid, row.productname, 
+            row.releasedate, row.publisher, row.genre, 
+            row.price, row.stock);         
+            products.push(pr);
+            resdata = pr.generateProductHtml();
+            res.write(resdata);
+          }
         }, 
         function(err, numberOfRetreivedRows){ res.end(); });
       });
@@ -192,13 +211,16 @@ router.get('/products', function(req, res, next){
     else if (sortMode === "price-decreasing"){
       db.serialize(function() {
         var resdata = "";
+        var counter = 0;
         db.each('SELECT * FROM Products WHERE productname LIKE "%'+searchTerm+'%" ORDER BY  price DESC', function(err, row) {
+          if(counter < amountLimit){
           pr = new Product(row.productid, row.productname, 
           row.releasedate, row.publisher, row.genre, 
           row.price, row.stock);         
           products.push(pr);
           resdata = pr.generateProductHtml();
           res.write(resdata);
+          }
         }, 
         function(err, numberOfRetreivedRows){ res.end(); });
       });
