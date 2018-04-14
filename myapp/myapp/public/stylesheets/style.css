@@ -45,11 +45,13 @@ header {
 }
 
 aside {
-    width: 100%;
+    width: 90%;
     background-color: rgba(0, 140, 255, 0.5);
     color: gray;
     margin: 20px;
     padding: 20px;
+    height: 300px; 
+    overflow-y: scroll;
 }
 
 #reset {
@@ -290,4 +292,3 @@ aside {
 #changes-succes-message {
     color: rgb(102, 255, 0);
 }
-
