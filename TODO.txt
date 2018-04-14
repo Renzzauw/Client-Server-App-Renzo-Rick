@@ -1,2 +1,0 @@
--tags aanpassen op pagina's
--account redirection bij login
