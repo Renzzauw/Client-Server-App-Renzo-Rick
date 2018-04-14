@@ -9,7 +9,6 @@ var buttonsLoggedOut = document.getElementsByClassName("menu-logged-out");
 
 // A session is present
 if (document.cookie){
-    console.log("session found");
     for (var i = 0; i < buttonsLoggedIn.length; i++){
         buttonsLoggedIn[i].style.visibility = "visible";
     }
@@ -19,7 +18,6 @@ if (document.cookie){
 }
 // A session is not present
 else {
-    console.log("session NOT found");
     for (var i = 0; i < buttonsLoggedIn.length; i++){
         buttonsLoggedIn[i].style.visibility = "hidden";
     }

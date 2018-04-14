@@ -94,10 +94,17 @@ router.get('/products', function(req, res, next){
   var otherpublisher = query.otherpublisher;
 
   function generateSQL(){
-    var sql = 'SELECT * FROM Products ';
+    var sql = 'SELECT * FROM Products WHERE ';
     if (searchTerm){
-      sql += 'WHERE productname LIKE "%'+searchTerm+'%" ';
+      sql += 'productname LIKE "%'+searchTerm+'%" ';
     }
+
+    if (action){ sql += 'genre="action" OR '; }
+    if (shooter){ sql += 'genre="shooter" OR '; }
+    if (racing){ sql += 'genre="racing" OR '; }
+    if (platformer){ sql += 'genre="platformer" OR '; }
+    if (sports){ sql += 'genre="sports" OR '; }
+    sql += '"0=1"';
     sql += "ORDER BY ";
     if (sortMode === "alphabet"){
       sql += 'productname ASC';
@@ -110,7 +117,6 @@ router.get('/products', function(req, res, next){
     }
     console.log(sql);
     return sql;
-
   }
 
   db.serialize(function() {

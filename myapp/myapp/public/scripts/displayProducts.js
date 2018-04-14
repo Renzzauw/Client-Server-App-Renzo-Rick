@@ -14,13 +14,13 @@ function createURL() {
     if ($("#racing").is(":checked")){url += "&racing=true"} else {url += "&racing=false"}
     if ($("#platformer").is(":checked")){url += "&platformer=true"} else {url += "&platformer=false"}
     if ($("#sports").is(":checked")){url += "&sports=true"} else {url += "&sports=false"}
-    if ($("#other-genre").is(":checked")){url += "&othergenre=true"} else {url += "&othergenre=false"}
+    if ($("#othergenre").is(":checked")){url += "&othergenre=true"} else {url += "&othergenre=false"}
     // get selected publishers
     if ($("#activision").is(":checked")){url += "&activision=true"} else {url += "&activision=false"}
     if ($("#ubisoft").is(":checked")){url += "&ubisoft=true"} else {url += "&ubisoft=false"}
     if ($("#ea").is(":checked")){url += "&ea=true"} else {url += "&ea=false"}
     if ($("#nintendo").is(":checked")){url += "&nintendo=true"} else {url += "&nintendo=false"}
-    if ($("#other-publisher").is(":checked")){url += "&otherpub=true"} else {url += "&otherpub=false"}
+    if ($("#otherpublisher").is(":checked")){url += "&otherpub=true"} else {url += "&otherpub=false"}
 
     return url;
 }
