@@ -44,8 +44,6 @@ function createURL() {
     if ($("#blizzard").is(":checked")){url += "&blizzard=true"} else {url += "&blizzard=false"}
     if ($("#activision").is(":checked")){url += "&activision=true"} else {url += "&activision=false"}
 
-
-
     return url;
 }
 
