@@ -79,7 +79,7 @@ router.get('/products', function(req, res, next){
   var max = query.max;
 
   // genres
-  var action = query.action;
+  var action2 = query.action;
   var shooter = query.shooter;
   var racing = query.racing;
   var platformer = query.platformer;
@@ -124,7 +124,7 @@ router.get('/products', function(req, res, next){
       sql += 'productname LIKE "%'+searchTerm+'%" ';
     }
 
-    if (action){ sql += 'genre="action" OR '; }
+    if (action2){ sql += 'genre="action" OR '; }
     if (shooter){ sql += 'genre="shooter" OR '; }
     if (racing){ sql += 'genre="racing" OR '; }
     if (platformer){ sql += 'genre="platformer" OR '; }
@@ -160,7 +160,7 @@ router.get('/products', function(req, res, next){
     if (activision){ sql += 'publisher="activision" OR '; }
 
 
-    sql += '"0=1"';
+    sql += 'genre = "asdav" ';
     sql += "ORDER BY ";
     if (sortMode === "alphabet"){
       sql += 'productname ASC';
