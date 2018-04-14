@@ -117,7 +117,6 @@ router.get('/products', function(req, res, next){
 
   function generateSQL(){
     var sql = 'SELECT * FROM Products WHERE ';
-    //if (min) { sql+= 'price>'+min}
     if (searchTerm){
       sql += 'productname LIKE "%'+searchTerm+'%" AND ';
     }
@@ -157,6 +156,7 @@ router.get('/products', function(req, res, next){
     if (bungie == "true"){ sql += 'publisher="Bungie" OR '; }
     if (blizzard =="true"){ sql += 'publisher="Blizzard Entertainment" OR '; }
     sql += 'genre = "asdav") ';
+    sql+= "AND (price BETWEEN " + min +" AND "+ max +") ";
     sql += "ORDER BY ";
     if (sortMode === "alphabet"){
       sql += 'productname ASC';
