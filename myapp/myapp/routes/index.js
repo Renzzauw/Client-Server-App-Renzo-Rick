@@ -31,7 +31,7 @@ class Product {
   // Function that generates and returns fitting html if a product is in stock or not
   generateProductHtml() {
     var html = "";
-    html = '<section class="product-field"><h5>Product ID: '+this.productid+'</h5><h3>'+this.productName+'</h3><h4>'+this.releaseDate+' '+this.publisher+' '+this.genre+'</h4><h5>Stock: '+this.stock+'</h5><img src="/images/products/'+this.productid+'.jpg" alt="game avatar">';
+    html = '<section class="product-field"><h5>Product ID: '+this.productid+'</h5><h3>'+this.productName+'</h3><h4>Release date: '+this.releaseDate+'</h4><h4>Developer: '+this.publisher+'</h4><h4>'+this.genre+'</h4><h5>Stock: '+this.stock+'</h5><img src="/images/products/'+this.productid+'.jpg" alt="game avatar">';
     
     // item is out of stock, disable buy button
     if (this.stock <= 0) {
