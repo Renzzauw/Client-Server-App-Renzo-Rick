@@ -16,8 +16,6 @@ var db = new sqlite3.Database(file);
 var products = [];
 var orderMode = [];
 
-
-
 // Product class for generating html to showcase the product
 class Product {
   constructor(productid, productName, releaseDate, publisher, genre, price, stock){
@@ -65,172 +63,72 @@ router.post('/', function(req, res, next) {
   });
 });
 
-/* GET all product genres */
-router.get('/genres', function(req, res, next){ 
-  db.serialize(function() {
-    db.each('SELECT DISTINCT genre FROM Products', function(err, row) {
-      res.write('<input type="checkbox" class="genrecheckboxes" id="'+ row.genre +'" name="'+ row.genre +'" checked><label for="'+ row.genre +'">'+ row.genre +'</label>');
-    }, function(err, numberOfRetreivedRows){ res.end(); });
-  });
-});
-
-/* GET all product publishers */
-router.get('/publishers', function(req, res, next){ 
-  db.serialize(function() {
-    db.each('SELECT DISTINCT publisher FROM Products', function(err, row) {
-      res.write('<input type="checkbox" class="publisher-checkboxes" id="'+ row.publisher +'" name="'+ row.publisher +'" checked><label for="'+ row.publisher +'">'+ row.publisher +'</label>');
-    }, function(err, numberOfRetreivedRows){ res.end(); });
-  });
-});
-
-/* GET minimum and maximum price of all products */
-router.get('/prices', function(req, res, next){ 
-  db.serialize(function() {
-    db.get('SELECT MIN(price) FROM Products', function(err, row) {
-      res.write(row.price);
-    });
-  });
-  db.serialize(function() {
-    db.get('SELECT MAX(price) FROM Products', function(err, row) {
-      res.write(row.price);
-    }, function(err, numberOfRetreivedRows){ res.end(); });
-  });
-});
-
 /* GET products on home page. */
 router.get('/products', function(req, res, next){
   // get search query
   var parts = url.parse(req.url, true);
   var query = parts.query;
+  var amountLimit = query.amount;
+
+  // query variables
   var sortMode = query.sort;
   var searchTerm = query.search;
-  var amountLimit = query.amount;
-  
-  // no search term is present
-  if (!searchTerm){
-    // sort by name
+
+  // min and max prices
+  var min = query.min;
+  var max = query.max;
+
+  // genres
+  var action = query.action;
+  var shooter = query.shooter;
+  var racing = query.racing;
+  var platformer = query.platformer;
+  var sports = query.sports;
+  var othersgenre = query.othergenre;
+
+  // publishers
+  var activision = query.activision;
+  var ubisoft = query.ubisoft;
+  var ea = query.ea;
+  var nintendo = query.nintendo;
+  var otherpublisher = query.otherpublisher;
+
+  function generateSQL(){
+    var sql = 'SELECT * FROM Products ';
+    if (searchTerm){
+      sql += 'WHERE productname LIKE "%'+searchTerm+'%" ';
+    }
+    sql += "ORDER BY ";
     if (sortMode === "alphabet"){
-      db.serialize(function() {
-        var resdata = "";
-        var counter = 0;
-        db.each("SELECT * FROM Products ORDER BY productname ASC", function(err, row) {
-          if(counter < amountLimit){
-            pr = new Product(row.productid, row.productname, 
-            row.releasedate, row.publisher, row.genre, 
-            row.price, row.stock);         
-            products.push(pr);
-            resdata = pr.generateProductHtml();
-            res.write(resdata);
-          }
-          counter++;
-        }, 
-        function(err, numberOfRetreivedRows){ res.end(); });
-      });
+      sql += 'productname ASC';
     }
-
-    // sort by price: increasing
     else if (sortMode === "price-increasing"){
-      db.serialize(function() {
-        var resdata = "";
-        var counter = 0;
-        db.each("SELECT * FROM Products ORDER BY price ASC", function(err, row) {
-          if(counter < amountLimit){
-            pr = new Product(row.productid, row.productname, 
-            row.releasedate, row.publisher, row.genre, 
-            row.price, row.stock);         
-            products.push(pr);
-            resdata = pr.generateProductHtml();
-            res.write(resdata);
-          }
-          counter++;
-        }, 
-        function(err, numberOfRetreivedRows){ res.end(); });
-      });
+      sql += 'price ASC';
     }
+    else {
+      sql += 'price DESC';
+    }
+    console.log(sql);
+    return sql;
 
-    // sort by price: increasing
-    else if (sortMode === "price-decreasing"){
-      db.serialize(function() {
-        var resdata = "";
-        var counter = 0;
-        db.each("SELECT * FROM Products ORDER BY price DESC", function(err, row) {
-          if(counter < amountLimit){
-            pr = new Product(row.productid, row.productname, 
-            row.releasedate, row.publisher, row.genre, 
-            row.price, row.stock);         
-            products.push(pr);
-            resdata = pr.generateProductHtml();
-            res.write(resdata);
-          }
-          counter++;
-        }, 
-        function(err, numberOfRetreivedRows){ res.end(); });
-      });
-    }
   }
 
-  // search term is present
-  else {
-    // sort by name
-    if (sortMode === "alphabet"){
-      db.serialize(function() {
-        var resdata = "";
-        var counter = 0;
-        db.each('SELECT * FROM Products WHERE productname LIKE "%'+searchTerm+'%" ORDER BY productname ASC', function(err, row) {
-          if(counter < amountLimit){
-            pr = new Product(row.productid, row.productname, 
-            row.releasedate, row.publisher, row.genre, 
-            row.price, row.stock);         
-            products.push(pr);
-            resdata = pr.generateProductHtml();
-            res.write(resdata);
-          }
-          counter++;
-        }, 
-        function(err, numberOfRetreivedRows){ res.end(); });
-      });
-    }
-
-    // sort by price: increasing
-    else if (sortMode === "price-increasing"){
-      db.serialize(function() {
-        var resdata = "";
-        var counter = 0;
-        db.each('SELECT * FROM Products WHERE productname LIKE "%'+searchTerm+'%" ORDER BY  price ASC', function(err, row) {
-          if(counter < amountLimit){
-            pr = new Product(row.productid, row.productname, 
-            row.releasedate, row.publisher, row.genre, 
-            row.price, row.stock);         
-            products.push(pr);
-            resdata = pr.generateProductHtml();
-            res.write(resdata);
-          }
-          counter++;
-        }, 
-        function(err, numberOfRetreivedRows){ res.end(); });
-      });
-    }
-
-    // sort by price: increasing
-    else if (sortMode === "price-decreasing"){
-      db.serialize(function() {
-        var resdata = "";
-        var counter = 0;
-        db.each('SELECT * FROM Products WHERE productname LIKE "%'+searchTerm+'%" ORDER BY  price DESC', function(err, row) {
-          if(counter < amountLimit){
-          pr = new Product(row.productid, row.productname, 
-          row.releasedate, row.publisher, row.genre, 
-          row.price, row.stock);         
-          products.push(pr);
-          resdata = pr.generateProductHtml();
-          res.write(resdata);
-          }
-          counter++;
-        }, 
-        function(err, numberOfRetreivedRows){ res.end(); });
-      });
-    }
-  }
+  db.serialize(function() {
+    var resdata = "";
+    var counter = 0;
+    db.each(generateSQL(), function(err, row) {
+      if(counter < amountLimit){
+        pr = new Product(row.productid, row.productname, 
+        row.releasedate, row.publisher, row.genre, 
+        row.price, row.stock);         
+        products.push(pr);
+        resdata = pr.generateProductHtml();
+        res.write(resdata);
+      }
+      counter++;
+    }, 
+    function(err, numberOfRetreivedRows){ res.end(); });
+  });
 });
 
 module.exports = router;
