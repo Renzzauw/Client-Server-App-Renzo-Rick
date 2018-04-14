@@ -142,6 +142,7 @@ router.get('/products', function(req, res, next){
             resdata = pr.generateProductHtml();
             res.write(resdata);
           }
+          counter++;
         }, 
         function(err, numberOfRetreivedRows){ res.end(); });
       });
@@ -161,6 +162,7 @@ router.get('/products', function(req, res, next){
             resdata = pr.generateProductHtml();
             res.write(resdata);
           }
+          counter++;
         }, 
         function(err, numberOfRetreivedRows){ res.end(); });
       });
@@ -183,6 +185,7 @@ router.get('/products', function(req, res, next){
             resdata = pr.generateProductHtml();
             res.write(resdata);
           }
+          counter++;
         }, 
         function(err, numberOfRetreivedRows){ res.end(); });
       });
@@ -202,6 +205,7 @@ router.get('/products', function(req, res, next){
             resdata = pr.generateProductHtml();
             res.write(resdata);
           }
+          counter++;
         }, 
         function(err, numberOfRetreivedRows){ res.end(); });
       });
@@ -221,6 +225,7 @@ router.get('/products', function(req, res, next){
           resdata = pr.generateProductHtml();
           res.write(resdata);
           }
+          counter++;
         }, 
         function(err, numberOfRetreivedRows){ res.end(); });
       });
