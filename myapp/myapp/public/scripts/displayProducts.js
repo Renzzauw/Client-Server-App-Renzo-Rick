@@ -1,43 +1,26 @@
-var genreCheckBoxes = [];
-var publisherCheckBoxes = [];
-var checkGenresQueryJoined = "";
-var checkedPublishersQueryJoined = "";
+// function to create url with all the queries
+function createURL() {
+    var url = "/products?sort="
+            + $("#sort").val()                              // sort mode
+            + "&search=" + $("#search-bar").val()           // searchbar value
+            + "&min=" + $("#price-min").val()               // minimum price range
+            + "&max=" + $("#price-max").val();              // maximum price range
+    // get selected genres
+    if ($("#action").is(":checked")){url += "&action=true"} else {url += "&action=false"}
+    if ($("#shooter").is(":checked")){url += "&shooter=true"} else {url += "&shooter=false"}
+    if ($("#racing").is(":checked")){url += "&racing=true"} else {url += "&racing=false"}
+    if ($("#platformer").is(":checked")){url += "&platformer=true"} else {url += "&platformer=false"}
+    if ($("#sports").is(":checked")){url += "&sports=true"} else {url += "&sports=false"}
+    if ($("#other-genre").is(":checked")){url += "&othergenre=true"} else {url += "&othergenre=false"}
+    // get selected publishers
+    if ($("#activision").is(":checked")){url += "&activision=true"} else {url += "&activision=false"}
+    if ($("#ubisoft").is(":checked")){url += "&ubisoft=true"} else {url += "&ubisoft=false"}
+    if ($("#ea").is(":checked")){url += "&ea=true"} else {url += "&ea=false"}
+    if ($("#nintendo").is(":checked")){url += "&nintendo=true"} else {url += "&nintendo=false"}
+    if ($("#other-publisher").is(":checked")){url += "&otherpub=true"} else {url += "&otherpub=false"}
 
-var checkedGenresQuery;
-$("#genre-checkboxes").load("/genres", function() {
-    genreCheckBoxes = $(".genrecheckboxes");
-    $("#genre-checkboxes").on('click', function(){
-        checkedGenresQuery = [];
-        for (var i = 0; i < $(".genrecheckboxes").length; i++){
-            if (genreCheckBoxes[i].checked === true) {
-                checkedGenresQuery.push($(".genrecheckboxes")[i].id + "=true");
-            } 
-            else {
-                checkedGenresQuery.push($(".genrecheckboxes")[i].id + "=false");
-            }
-        }
-        checkGenresQueryJoined = checkedGenresQuery.join("&").replace(' ','_');
-        console.log(checkGenresQueryJoined);
-    });
-});
-
-var checkedPublishersQuery;
-$("#publisher-checkboxes").load("/publishers", function() {
-    publisherCheckBoxes = $(".publishercheckboxes");
-    $("#publisher-checkboxes").on('click', function(){
-        checkedPublishersQuery = [];
-        for (var i = 0; i < $(".genrecheckboxes").length; i++){
-            if (publisherCheckBoxes[i].checked === true) {
-                checkedPublishersQuery.push($(".publishercheckboxes")[i].id + "=true");
-            } 
-            else {
-                checkedPublishersQuery.push($(".publishercheckboxes")[i].id + "=false");
-            }
-        }
-        checkedPublishersQueryJoined = checkedPublishersQuery.join("&").replace(' ','_');  
-        console.log(checkedPublishersQueryJoined);
-    });
-});
+    return url;
+}
 
 
 // disable submitting when using the search bar
@@ -45,33 +28,13 @@ $("#search-form").submit(false);
 
 // add even "onsubmit" listener to the search form
 $("#search-bar").on('input', function(event){
-    $("#catalogue").load("/products?sort="                      
-                        + $("#sort").val()                      // sort mode
-                        + "&search=" + $("#search-bar").val()   // searchbar value
-                        + "&" + checkGenresQueryJoined          // genres checkboxes
-                        + "&" + checkedPublishersQueryJoined    // publishers checkboxes
-                        + "&min=" + $("#price-min").val()       // minimum price range
-                        + "&max=" + $("#price-max").val());     // maximum price range
+    $("#catalogue").load(createURL());
 });
 
 // Send search configuration to server and load products
 $('#filters-form').change(function(){
-    $("#catalogue").load("/products?sort="                      
-                        + $("#sort").val()                      // sort mode
-                        + "&search=" + $("#search-bar").val()   // searchbar value
-                        + "&" + checkGenresQueryJoined          // genres checkboxes
-                        + "&" + checkedPublishersQueryJoined    // publishers checkboxes
-                        + "&min=" + $("#price-min").val()       // minimum price range
-                        + "&max=" + $("#price-max").val());     // maximum price range
+    $("#catalogue").load(createURL());
 });
 
-// initialize product sorting with alphabetical order when initially loading index page
-$("#catalogue").load("/products?sort="                      
-                        + $("#sort").val()                      // sort mode
-                        + "&search=" + $("#search-bar").val()   // searchbar value
-                        + "&" + checkGenresQueryJoined          // genres checkboxes
-                        + "&" + checkedPublishersQueryJoined    // publishers checkboxes
-                        + "&min=" + $("#price-min").val()       // minimum price range
-                        + "&max=" + $("#price-max").val());     // maximum price range
-
-
+// initialize product loading
+$("#catalogue").load(createURL());
