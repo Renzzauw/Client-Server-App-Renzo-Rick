@@ -1,5 +1,6 @@
 var amount = 5;
 
+
 // function to create url with all the queries
 function createURL() {
     var url = "/products?sort="
