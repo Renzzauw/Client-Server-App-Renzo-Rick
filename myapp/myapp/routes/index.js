@@ -117,12 +117,13 @@ router.get('/products', function(req, res, next){
   var blizzard = query.blizzard;
   var nintendo = query.nintendo;
 
+  // function to create the sql statement to look for the query and give the right results
   function generateSQL(){
     var sql = 'SELECT * FROM Products WHERE ';
     if (searchTerm){
       sql += 'productname LIKE "%'+searchTerm+'%" AND ';
     }
-    sql += "(";
+    sql += "((";
 
     if (action2 == "true"){ sql += 'genre="Action" OR '; }
     if (shooter == "true"){ sql += 'genre="Shooter" OR '; }
@@ -135,6 +136,9 @@ router.get('/products', function(req, res, next){
     if (rpg == "true"){ sql += 'genre="RPG" OR '; }
     if (strategy == "true"){ sql += 'genre="Strategy" OR '; }
     if (horror == "true"){ sql += 'genre="Horror" OR '; }
+
+    // add a non-existing genre to the query to not get any syntax errors with OR in the sql-statement
+    sql += "genre='yeet') AND (";
 
     if (ubisoft == "true"){ sql += 'publisher="UbiSoft" OR '; }
     if (activision == "true"){ sql += 'publisher="Activision" OR '; }
@@ -157,7 +161,9 @@ router.get('/products', function(req, res, next){
     if (cdprojektred == "true"){ sql += 'publisher="CD Projekt RED" OR '; }
     if (bungie == "true"){ sql += 'publisher="Bungie" OR '; }
     if (blizzard =="true"){ sql += 'publisher="Blizzard Entertainment" OR '; }
-    sql += 'genre = "asdav") ';
+    
+    // add a non-existing genre to the query to not get any syntax errors with OR in the sql-statement
+    sql += 'genre = "asdav")) ';
     sql+= "AND (price BETWEEN " + min +" AND "+ max +") ";
     sql += "ORDER BY ";
     if (sortMode === "alphabet"){
@@ -169,6 +175,7 @@ router.get('/products', function(req, res, next){
     else {
       sql += 'price DESC';
     }
+    console.log("\n"+ sql + "\n");
     return sql;
   }
 
