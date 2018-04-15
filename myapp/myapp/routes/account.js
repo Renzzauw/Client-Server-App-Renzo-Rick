@@ -1,3 +1,5 @@
+// * router for account page * //
+
 var express = require('express');
 var router = express.Router();
 
@@ -12,16 +14,18 @@ var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database(file);
 var foundMatch = {};
 
+// class for storing all user data and passing it as object
 class User {
     constructor(username, email, firstname, lastname, password){
         this.username = username;
         this.email = email;
-        this,firstname = firstname;
+        this.firstname = firstname;
         this.lastname = lastname;
         this.password = password;
     }
 }
 
+/* GET account */
 router.get('/', function(req, res, next) {  
     if (!req.session) {
         // visitor has not been logged in, redirect to login page
@@ -37,7 +41,7 @@ router.get('/', function(req, res, next) {
     }      
 });
 
-/* POST users listing. */
+/* POST account */
 router.post('/', function(req, res, next) {
     // get signup data from POST request, create a user object
     var user = new User(req.body.username, req.body.email, req.body.firstname, req.body.lastname, req.body.password);

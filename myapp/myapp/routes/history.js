@@ -1,9 +1,12 @@
+// * router for order history page * //
+
 var express = require('express');
 var router = express.Router();
 
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database("databases/database.db");
 
+/* GET order history page */
 router.get('/', function(req, res, next) {  
     // redirect user without session back to home page
     if(!req.session.userid) {
@@ -14,6 +17,7 @@ router.get('/', function(req, res, next) {
     }       
 });
 
+/* GET order history */
 router.get('/his', function(req, res, next){
     var results = "";
     // get all history that is linked to the user from the database

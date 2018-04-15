@@ -1,5 +1,9 @@
-var amount = 5;
+/* 
+ * script to get and display products properly
+ */
 
+// variable to store how many products should be shown
+var amount = 5;
 
 // function to create url with all the queries
 function createURL() {
@@ -65,6 +69,7 @@ $('#filters-form').change(function(){
 // initialize product loading
 $("#catalogue").load(createURL());
 
+// load more products button has been pressed: display 5 more products
 $("#load-more-button").click(function(){
     amount += 5;
     $("#catalogue").load(createURL());

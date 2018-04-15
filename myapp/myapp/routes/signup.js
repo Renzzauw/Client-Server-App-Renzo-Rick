@@ -1,3 +1,5 @@
+// * router for signup page * //
+
 var express = require('express');
 var router = express.Router();
 
@@ -12,7 +14,7 @@ var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database(file);
 var foundMatch = {};
 
-
+// get potential duplicate username entries in database
 db.serialize(function() {
     db.each("SELECT username FROM Accounts", function(err, row) {
       foundMatch = {
@@ -21,9 +23,7 @@ db.serialize(function() {
     });
 });
 
-//db.close();
-
-/* GET users listing. */
+/* GET signup */
 router.get('/', function(req, res, next) {
   if(req.session.userid) {
     res.redirect('/'); 
@@ -34,7 +34,7 @@ router.get('/', function(req, res, next) {
   
 });
 
-/* POST users listing. */
+/* POST signup */
 router.post('/', function(req, res, next) {
   // get signup data from POST request
   console.log("> Handling a signup");
