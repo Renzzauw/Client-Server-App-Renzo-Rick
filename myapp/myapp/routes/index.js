@@ -169,7 +169,6 @@ router.get('/products', function(req, res, next){
     else {
       sql += 'price DESC';
     }
-    console.log("\n"+sql+"\n");
     return sql;
   }
 
